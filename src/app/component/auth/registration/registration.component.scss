@@ -1,0 +1,39 @@
+.registration__section {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .registration__form {
+    border: 1px solid rgb(141 152 231 / 25%);
+    padding: 2em;
+    border-radius: 4px;
+
+    .first__last_name_block {
+
+      .mat-form-field:first-child {
+        margin-right: 5px;
+      }
+    }
+
+    .username__email_block {
+      display: grid;
+    }
+
+    .title {
+      font-family: 'Bitter';
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+
+  .form__button {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+mat-form-field {
+  margin-bottom: 10px;
+}

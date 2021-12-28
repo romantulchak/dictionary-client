@@ -1,0 +1,23 @@
+<section class="login__section">
+  <form [formGroup]="loginForm" class="login__form">
+    <h3 class="title">Login</h3>
+    <h4 *ngIf="isLoginFailed">{{errorMessage}}</h4>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Username</mat-label>
+      <input type="text" matInput formControlName="username" placeholder="username">
+      <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" placeholder="password">
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <div class="form__button">
+        <button mat-stroked-button color="primary" (click)="login()">Login</button>
+    </div>
+  </form>
+</section>

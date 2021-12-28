@@ -1,0 +1,75 @@
+<section class="registration__section">
+  <form [formGroup]="registrationForm" class="registration__form">
+    <h3 class="title">Registration</h3>
+    <h4 *ngIf="isLoginFailed">{{errorMessage}}</h4>
+    <div class="first__last_name_block">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input type="text" matInput formControlName="firstName" placeholder="firstName">
+        <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">
+          First Name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('firstName')?.hasError('minlength')">
+          First Name min lengths is <strong>2</strong>
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('firstName')?.hasError('maxlength')">
+          First Name max lengths is <strong>25</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input type="text" matInput formControlName="lastName" placeholder="lastName">
+        <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">
+          Last Name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('lastName')?.hasError('minlength')">
+          Last Name min lengths is <strong>2</strong>
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('lastName')?.hasError('maxlength')">
+          Last Name max lengths is <strong>30</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="username__email_block">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Username</mat-label>
+        <input type="text" matInput formControlName="username" placeholder="username">
+        <mat-error *ngIf="registrationForm.get('username')?.hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="text" matInput formControlName="email" placeholder="email">
+        <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">
+          Incorrect email form
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('email')?.hasError('minlength')">
+          Email min lengths is <strong>3</strong>
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('email')?.hasError('maxlength')">
+          Email max lengths is <strong>40</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" placeholder="password">
+        <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('password')?.hasError('minlength')">
+          Password min lengths is <strong>4</strong>
+        </mat-error>
+        <mat-error *ngIf="registrationForm.get('password')?.hasError('maxlength')">
+          Password max lengths is <strong>90</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form__button">
+      <button mat-stroked-button color="primary" (click)="registration()">Registration</button>
+    </div>
+  </form>
+</section>
