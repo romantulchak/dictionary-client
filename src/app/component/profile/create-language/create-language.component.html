@@ -1,0 +1,25 @@
+<section class="language__section">
+  <form [formGroup]="languageForm">
+    <h3 *ngIf="errorMessage">{{errorMessage}}</h3>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Language name</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="language name">
+      <mat-error *ngIf="languageForm.get('name')?.hasError('required')">
+        Language name is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="languageForm.get('name')?.hasError('minlength')">
+        Language name min lengths is <strong>3</strong>
+      </mat-error>
+      <mat-error *ngIf="languageForm.get('name')?.hasError('maxlength')">
+        Language name max lengths is <strong>30</strong>
+      </mat-error>
+    </mat-form-field>
+    <ul class="country__flags_list">
+      <li *ngFor="let flag of flags" [title]="flag.code" [class.selected]="flag?.id === selectedFlag?.id"
+        (click)="selectFlag(flag)"><span class="flag-icon flag-icon-{{flag.code}}"></span></li>
+    </ul>
+    <div class="create__language">
+      <button mat-stroked-button color="primary" (click)="create()">Create</button>
+    </div>
+  </form>
+</section>

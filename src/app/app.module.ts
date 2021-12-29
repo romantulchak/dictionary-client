@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {HttpClientModule} from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,9 @@ import { RegistrationComponent } from './component/auth/registration/registratio
 import { ProfileComponent } from './component/profile/profile.component';
 import { MainComponent } from './component/main/main.component';
 import { authInterceptorProviders } from './service/auth.interceptor';
+import { CreateLanguageComponent } from './component/profile/create-language/create-language.component';
+import { UserInfoComponent } from './component/profile/user-info/user-info.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,9 @@ import { authInterceptorProviders } from './service/auth.interceptor';
     LoginComponent,
     RegistrationComponent,
     ProfileComponent,
-    MainComponent
+    MainComponent,
+    CreateLanguageComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +35,9 @@ import { authInterceptorProviders } from './service/auth.interceptor';
     MatInputModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    FormsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
