@@ -14,9 +14,12 @@ import { RegistrationComponent } from './component/auth/registration/registratio
 import { ProfileComponent } from './component/profile/profile.component';
 import { MainComponent } from './component/main/main.component';
 import { authInterceptorProviders } from './service/auth.interceptor';
-import { CreateLanguageComponent } from './component/profile/create-language/create-language.component';
+import { CreateLanguageComponent } from './component/profile/languages/create-language/create-language.component';
 import { UserInfoComponent } from './component/profile/user-info/user-info.component';
 import {MatIconModule} from '@angular/material/icon';
+import { NotFoundComponent } from './component/not-found/not-found.component';
+import { LanguagesComponent } from './component/profile/languages/languages.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import {MatIconModule} from '@angular/material/icon';
     ProfileComponent,
     MainComponent,
     CreateLanguageComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    NotFoundComponent,
+    LanguagesComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,8 @@ import {MatIconModule} from '@angular/material/icon';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatTableModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

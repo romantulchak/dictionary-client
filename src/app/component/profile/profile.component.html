@@ -3,7 +3,10 @@
     <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <a routerLink="/profile/user-info"> <mat-icon>person</mat-icon> Profile</a>
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/profile/languages"> <mat-icon>spellcheck</mat-icon> All languages</a>
+    </li>
+    <li routerLinkActive="active" *ngIf="userPrivileges?.isAdmin || userPrivileges?.isModerator">
       <a routerLink="/profile/create-language"><mat-icon>language</mat-icon> Create language</a>
     </li>
   </ul>

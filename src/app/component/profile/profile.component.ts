@@ -14,28 +14,19 @@ import { TokenStorageService } from 'src/app/service/token-storage.service';
 export class ProfileComponent implements OnInit {
 
   public userPrivileges: UserPrivileges;
-  public user: JwtDTO | null;
 
-  constructor(private roleService: RoleService,
-              private tokenStorageService: TokenStorageService) {}
+  constructor(private roleService: RoleService) {}
 
   ngOnInit(): void {
-    this.getUser();
     this.getUserRoles();
   }
 
-  private getUser(): void{
-    this.user = this.tokenStorageService.getUser();
-  }
-
   private getUserRoles(): void{
-    if(this.user !== null){
-      this.roleService.getRolesForUser(this.user?.id).subscribe(
-        res=>{
-            this.userPrivileges = this.getUserPrivileges(res);
-        }
-      )
-    }
+    this.roleService.getRolesForUser().subscribe(
+      res=>{
+          this.userPrivileges = this.getUserPrivileges(res);
+      }
+    );
   }
 
   private getUserPrivileges(roles: string[]): UserPrivileges{

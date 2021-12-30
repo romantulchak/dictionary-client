@@ -12,7 +12,7 @@ export class RoleService{
 
     constructor(private http: HttpClient){}
 
-    public getRolesForUser(id: string): Observable<string[]>{
-        return this.http.get<string[]>(`${API_URL}role/user-roles/${id}`);
+    public getRolesForUser(): Observable<string[]>{
+        return this.http.get<string[]>(`${API_URL}role/user-roles`);
     }
 }

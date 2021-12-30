@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LanguageDTO } from 'src/app/dto/language.dto';
 import { CountryFlag } from 'src/app/model/country-flag.model';
 import { CreateLanguageRequest } from 'src/app/request/create-language.request';
 import { LanguageService } from 'src/app/service/language.service';
@@ -15,13 +16,14 @@ export class CreateLanguageComponent implements OnInit {
   public selectedFlag: CountryFlag;
   public languageForm: FormGroup;
   public errorMessage: string;
+  public languages: LanguageDTO[];
 
   constructor(private languageService: LanguageService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.initLanguageForm();
-    this.getCountryFlags();
+    this.getAllLanguages();
   }
 
   public selectFlag(flag: CountryFlag): void{
@@ -34,7 +36,8 @@ export class CreateLanguageComponent implements OnInit {
         const createLanguageRequest = new CreateLanguageRequest(this.name.value, this.code.value);
         this.languageService.create(createLanguageRequest).subscribe(
           res=>{
-            console.log("Language created");
+            this.languages.push(createLanguageRequest);
+            this.flags = this.flags.filter(flag => flag.code != this.code.value);
           },
           error=>{
             this.errorMessage = error.error.message;
@@ -45,10 +48,20 @@ export class CreateLanguageComponent implements OnInit {
       }
   }
 
+  public getAllLanguages(){
+    this.languageService.getAllLanguages().subscribe(
+      res=>{
+        this.languages = res;
+        this.getCountryFlags();
+      }
+    );
+  }
+
   private getCountryFlags(): void{
     this.languageService.getCountryFlags().subscribe(
       res=>{
-        this.flags = res;
+        const existingCodes = this.languages.map(language => language.code);
+        this.flags = res.filter(flag => !existingCodes.includes(flag.code));
       }
     );
   }
