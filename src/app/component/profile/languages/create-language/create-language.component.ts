@@ -48,7 +48,7 @@ export class CreateLanguageComponent implements OnInit {
       }
   }
 
-  public getAllLanguages(){
+  private getAllLanguages(){
     this.languageService.getAllLanguages().subscribe(
       res=>{
         this.languages = res;

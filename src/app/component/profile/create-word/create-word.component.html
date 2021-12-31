@@ -1,0 +1,91 @@
+<section class="create__word_section">
+  <h3 class="title">Create Word</h3>
+  <form [formGroup]="createWordForm">
+    <div class="create__word_form">
+      <div formGroupName="languageFrom">
+        <div class="language__field_block">
+          <h3><span class="flag-icon flag-icon-{{createWordForm?.value?.languageFrom?.language?.code}}"></span>
+            {{createWordForm?.value?.languageFrom?.language?.name}}
+          </h3>
+          <mat-form-field appearance="fill">
+            <mat-label>From Language</mat-label>
+            <mat-select formControlName="language" (selectionChange)="selectLanguage($event)"
+              [(value)]="selectedLanguageFrom">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let language of languagesFrom" [value]="language">{{language.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="createWordForm.get('languageFrom.code')?.hasError('required')">
+              Language is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="word__field" appearance="fill">
+            <mat-label>Word</mat-label>
+            <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+            <mat-error *ngIf="createWordForm.get('languageFrom.word')?.hasError('required')">
+              Word is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="createWordForm.get('languageFrom.word')?.hasError('minlength')">
+              Word min lengths is <strong>1</strong>
+            </mat-error>
+            <mat-error *ngIf="createWordForm.get('languageFrom.word')?.hasError('maxlength')">
+              Word max lengths is <strong>500</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div formArrayName="languagesTo">
+        <button (click)="addNewLanguage($event)" mat-mini-fab color="primary" aria-label="Add language button"
+          class="add__language_btn">
+          <mat-icon>add</mat-icon>
+        </button>
+        <ng-container *ngFor="let lessonForm of languagesToControls.controls; let i = index">
+          <div [formGroupName]="i" class="translate__block">
+            <div class="language__field_block">
+              <h3>
+                <span *ngIf="lessonForm?.value?.language">
+                    <span class="flag-icon flag-icon-{{lessonForm?.value?.language?.code}}"></span>
+                    {{lessonForm?.value?.language?.name}}
+                </span>
+                <span *ngIf="!lessonForm?.value?.language?.name">
+                    Choose Language
+                </span>
+              </h3>
+              <mat-form-field appearance="fill">
+                <mat-label>Language</mat-label>
+                <mat-select formControlName="language">
+                  <mat-option>None</mat-option>
+                  <mat-option *ngFor="let language of languagesTo" [value]="language">{{language.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="lessonForm.get('code')?.hasError('required')">
+                  Language is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="word__field" appearance="fill">
+                <mat-label>Translated Word</mat-label>
+                <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                <mat-error *ngIf="lessonForm.get('word')?.hasError('required')">
+                  Translated Word <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="lessonForm.get('word')?.hasError('minlength')">
+                  Translated Word min lengths is <strong>1</strong>
+                </mat-error>
+                <mat-error *ngIf="lessonForm.get('word')?.hasError('maxlength')">
+                  Translated Word max lengths is <strong>500</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <button>Create</button>
+  </form>
+</section>

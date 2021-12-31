@@ -9,6 +9,9 @@
     <li routerLinkActive="active" *ngIf="userPrivileges?.isAdmin || userPrivileges?.isModerator">
       <a routerLink="/profile/create-language"><mat-icon>language</mat-icon> Create language</a>
     </li>
+    <li routerLinkActive="active" *ngIf="isAllowAllRoles">
+      <a routerLink="/profile/create-word">	<mat-icon>add_box</mat-icon> Create word</a>
+    </li>
   </ul>
   <div class="profile__right_side">
     <ul class="profile__top_nav">
@@ -17,7 +20,9 @@
       </li>
     </ul>
     <div class="content">
-      <router-outlet></router-outlet>
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </section>

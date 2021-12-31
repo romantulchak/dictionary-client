@@ -4,6 +4,7 @@ import { LoginComponent } from './component/auth/login/login.component';
 import { RegistrationComponent } from './component/auth/registration/registration.component';
 import { MainComponent } from './component/main/main.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
+import { CreateWordComponent } from './component/profile/create-word/create-word.component';
 import { CreateLanguageComponent } from './component/profile/languages/create-language/create-language.component';
 import { LanguagesComponent } from './component/profile/languages/languages.component';
 import { ProfileComponent } from './component/profile/profile.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
     {path: RouterConstant.HOME_URL, redirectTo: RouterConstant.USER_INFO_URL, pathMatch: 'full'},
     {path: RouterConstant.USER_INFO_URL, component: UserInfoComponent},
     {path: RouterConstant.LANGUAGES_URL, component: LanguagesComponent},
+    {path: RouterConstant.CREATE_WORD_URL, component: CreateWordComponent},
     {path: RouterConstant.CREATE_LANGUAGE_URL, component: CreateLanguageComponent, canActivate: [AdminModeratorGuard], data: {roles: ['ROLE_MODERATOR', 'ROLE_ADMIN']}}
   ]},
   {path: RouterConstant.NOT_FOUND_URL, component: NotFoundComponent}

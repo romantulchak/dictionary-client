@@ -20,6 +20,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { LanguagesComponent } from './component/profile/languages/languages.component';
 import {MatTableModule} from '@angular/material/table';
+import { CreateWordComponent } from './component/profile/create-word/create-word.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {MatTableModule} from '@angular/material/table';
     CreateLanguageComponent,
     UserInfoComponent,
     NotFoundComponent,
-    LanguagesComponent
+    LanguagesComponent,
+    CreateWordComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import {MatTableModule} from '@angular/material/table';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

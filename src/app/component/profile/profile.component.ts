@@ -14,6 +14,7 @@ import { TokenStorageService } from 'src/app/service/token-storage.service';
 export class ProfileComponent implements OnInit {
 
   public userPrivileges: UserPrivileges;
+  public isAllowAllRoles: boolean;
 
   constructor(private roleService: RoleService) {}
 
@@ -25,16 +26,17 @@ export class ProfileComponent implements OnInit {
     this.roleService.getRolesForUser().subscribe(
       res=>{
           this.userPrivileges = this.getUserPrivileges(res);
+          this.isAllowAllRoles = this.userPrivileges.allowAllRoles();
       }
     );
   }
 
   private getUserPrivileges(roles: string[]): UserPrivileges{
-    return {
-      isAdmin: roles.includes(RoleType[RoleType.ROLE_ADMIN]),
-      isModerator: roles.includes(RoleType[RoleType.ROLE_MODERATOR]),
-      isUser: roles.includes(RoleType[RoleType.ROLE_USER])
-    } as UserPrivileges;
+    const isAdmin = roles.includes(RoleType[RoleType.ROLE_ADMIN]);
+    const isModerator = roles.includes(RoleType[RoleType.ROLE_MODERATOR]);
+    const isUser = roles.includes(RoleType[RoleType.ROLE_USER]);
+    return new UserPrivileges(isAdmin, isModerator, isUser);
   }
+
 
 }

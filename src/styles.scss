@@ -17,3 +17,14 @@ a{
     text-transform: none;
     color: inherit;
 }
+
+.mat-h3, .mat-subheading-2, .mat-typography .title{
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.container{
+    max-width: 1600px;
+    margin: 0 auto;
+}

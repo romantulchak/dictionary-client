@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LanguageDTO } from 'src/app/dto/language.dto';
+import { LanguageService } from 'src/app/service/language.service';
 
 @Component({
   selector: 'app-languages',
@@ -9,11 +10,19 @@ import { LanguageDTO } from 'src/app/dto/language.dto';
 export class LanguagesComponent implements OnInit {
 
   @Input() languages: LanguageDTO[];
-  public displayedColumns: string[] = ['code', 'name', 'edit', 'delete'];
+  public displayedColumns: string[] = ['code', 'name', 'createAt', 'edit', 'delete'];
 
-  constructor() { }
+  constructor(private languageService: LanguageService) { }
 
   ngOnInit(): void {
+    this.getAllLanguages();
   }
 
+  private getAllLanguages(){
+    this.languageService.getAllLanguages().subscribe(
+      res=>{
+        this.languages = res;
+      }
+    );
+  }
 }

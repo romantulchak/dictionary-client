@@ -1,20 +1,24 @@
 <section class="languages__section">
-
-    <table *ngIf="languages" mat-table [dataSource]="languages" class="mat-elevation-z8">
+    <h3 class="title">All languages</h3>
+    <table *ngIf="languages" mat-table [dataSource]="languages" class="mat-elevation-z8 languages__table">
         <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef> Country </th>
+          <th mat-header-cell *matHeaderCellDef class="country__column"> Country </th>
           <td mat-cell *matCellDef="let element"><span class="flag-icon flag-icon-{{element.code}}"></span></td>
         </ng-container>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th mat-header-cell *matHeaderCellDef class="name__column"> Name </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
+        <ng-container matColumnDef="createAt">
+          <th mat-header-cell *matHeaderCellDef class="createAt__column"> Create At </th>
+          <td mat-cell *matCellDef="let element"> {{element.createAt | date: 'dd-MM-yyyy'}} </td>
+        </ng-container>
         <ng-container matColumnDef="edit">
-            <th mat-header-cell *matHeaderCellDef> Edit </th>
+            <th mat-header-cell *matHeaderCellDef class="action__column"> Edit </th>
             <td mat-cell *matCellDef="let element"><mat-icon>edit</mat-icon></td>
           </ng-container>
           <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <th mat-header-cell *matHeaderCellDef class="action__column"> Delete </th>
             <td mat-cell *matCellDef="let element"><mat-icon>close</mat-icon></td>
           </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
