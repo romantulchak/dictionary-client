@@ -1,1 +1,59 @@
-<p>main works!</p>
+<section class="main__section">
+  <form [formGroup]="translateWordForm" #form="ngForm" (ngSubmit)="translate()">
+    <div class="translate__block">
+      <div>
+          <h3 class="title">Translate from</h3>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Translate from</mat-label>
+            <mat-select formControlName="languageFrom">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let language of languages" [value]="language">{{language.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="translateWordForm.get('languageFrom')?.hasError('required')">
+              Language to translate is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Word</mat-label>
+            <textarea matInput placeholder="Word" formControlName="word"></textarea>
+            <mat-error *ngIf="translateWordForm.get('word')?.hasError('required')">
+              Word is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="translateWordForm.get('word')?.hasError('minLenght')">
+              Word min length is <strong>1</strong>
+            </mat-error>
+            <mat-error *ngIf="translateWordForm.get('word')?.hasError('maxLenght')">
+              Word max length is <strong>500</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <button mat-stroked-button color="primary" [disabled]="form.invalid" type="submit">Translate</button>
+      </div>
+      <div>
+        <h3 class="title">Translate To</h3>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Translate to</mat-label>
+            <mat-select formControlName="languageTo">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let language of languages" [value]="language">{{language.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="translateWordForm.get('languageTo')?.hasError('required')">
+              Language to translate is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-chip-list aria-label="Translated words">
+            <mat-chip *ngFor="let translatedWord of translatedWords" color="primary" selected>{{translatedWord}}</mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

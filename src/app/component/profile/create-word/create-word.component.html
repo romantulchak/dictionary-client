@@ -1,6 +1,6 @@
 <section class="create__word_section">
   <h3 class="title">Create Word</h3>
-  <form [formGroup]="createWordForm">
+  <form [formGroup]="createWordForm" #form="ngForm" (ngSubmit)="create()">
     <div class="create__word_form">
       <div formGroupName="languageFrom">
         <div class="language__field_block">
@@ -35,6 +35,7 @@
             </mat-error>
           </mat-form-field>
         </div>
+        <button mat-stroked-button color="primary" type="submit">Create</button>
       </div>
       <div formArrayName="languagesTo">
         <button (click)="addNewLanguage($event)" mat-mini-fab color="primary" aria-label="Add language button"
@@ -46,11 +47,11 @@
             <div class="language__field_block">
               <h3>
                 <span *ngIf="lessonForm?.value?.language">
-                    <span class="flag-icon flag-icon-{{lessonForm?.value?.language?.code}}"></span>
-                    {{lessonForm?.value?.language?.name}}
+                  <span class="flag-icon flag-icon-{{lessonForm?.value?.language?.code}}"></span>
+                  {{lessonForm?.value?.language?.name}}
                 </span>
                 <span *ngIf="!lessonForm?.value?.language?.name">
-                    Choose Language
+                  Choose Language
                 </span>
               </h3>
               <mat-form-field appearance="fill">
@@ -85,7 +86,5 @@
         </ng-container>
       </div>
     </div>
-
-    <button>Create</button>
   </form>
 </section>

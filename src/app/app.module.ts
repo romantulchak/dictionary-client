@@ -22,6 +22,7 @@ import { LanguagesComponent } from './component/profile/languages/languages.comp
 import {MatTableModule} from '@angular/material/table';
 import { CreateWordComponent } from './component/profile/create-word/create-word.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     FormsModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatChipsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
