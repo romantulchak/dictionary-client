@@ -1,6 +1,6 @@
 <section class="create__word_section">
   <h3 class="title">Create Word</h3>
-  <form [formGroup]="createWordForm" #form="ngForm" (ngSubmit)="create()">
+  <form *ngIf="languages !== undefined" [formGroup]="createWordForm" #form="ngForm" (ngSubmit)="create()">
     <div class="create__word_form">
       <div formGroupName="languageFrom">
         <div class="language__field_block">
@@ -9,9 +9,8 @@
           </h3>
           <mat-form-field appearance="fill">
             <mat-label>From Language</mat-label>
-            <mat-select formControlName="language" (selectionChange)="selectLanguage($event)"
+            <mat-select formControlName="language" (selectionChange)="selectLanguageFrom($event)"
               [(value)]="selectedLanguageFrom">
-              <mat-option>None</mat-option>
               <mat-option *ngFor="let language of languagesFrom" [value]="language">{{language.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="createWordForm.get('languageFrom.code')?.hasError('required')">
@@ -38,8 +37,7 @@
         <button mat-stroked-button color="primary" type="submit">Create</button>
       </div>
       <div formArrayName="languagesTo">
-        <button (click)="addNewLanguage($event)" mat-mini-fab color="primary" aria-label="Add language button"
-          class="add__language_btn">
+        <button (click)="addNewLanguage($event)" mat-mini-fab color="primary" aria-label="Add language button" class="add__language_btn" [disabled]="currentAddLanguagesLength >= languages.length-1">
           <mat-icon>add</mat-icon>
         </button>
         <ng-container *ngFor="let lessonForm of languagesToControls.controls; let i = index">
@@ -56,10 +54,8 @@
               </h3>
               <mat-form-field appearance="fill">
                 <mat-label>Language</mat-label>
-                <mat-select formControlName="language">
-                  <mat-option>None</mat-option>
-                  <mat-option *ngFor="let language of languagesTo" [value]="language">{{language.name}}
-                  </mat-option>
+                <mat-select formControlName="language" (selectionChange)="selectLanguageTo($event, i)">
+                  <mat-option *ngFor="let language of createWordForm.get('languagesTo.'+i+'.languages')?.value" [value]="language">{{language.name}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="lessonForm.get('code')?.hasError('required')">
                   Language is <strong>required</strong>
