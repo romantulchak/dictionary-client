@@ -3,7 +3,7 @@
     <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <a routerLink="/profile/user-info"> <mat-icon>person</mat-icon> Profile</a>
     </li>
-    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    <li routerLinkActive="active">
       <a routerLink="/profile/languages"> <mat-icon>spellcheck</mat-icon> All languages</a>
     </li>
     <li routerLinkActive="active" *ngIf="userPrivileges?.isAdmin || userPrivileges?.isModerator">
@@ -14,11 +14,7 @@
     </li>
   </ul>
   <div class="profile__right_side">
-    <ul class="profile__top_nav">
-      <li>
-        <a routerLink=""><mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon></a>
-      </li>
-    </ul>
+    <app-top-nav></app-top-nav>
     <div class="content">
       <div class="container">
         <router-outlet></router-outlet>

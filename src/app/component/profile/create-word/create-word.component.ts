@@ -34,6 +34,7 @@ export class CreateWordComponent implements OnInit {
 
   public selectLanguageFrom(matSelect: MatSelectChange): void{
     const selectedLanguage: LanguageDTO = matSelect.value;
+    this.selectedLanguageFrom = selectedLanguage;
     this.selectedLanguagesTo.push(selectedLanguage);
     this.languagesToControls.controls.forEach(control => {
       const languages = control.get(LANGUAGES_CONTROL);
@@ -55,13 +56,25 @@ export class CreateWordComponent implements OnInit {
   }
 
   public create(): void{
-    const request = new CreateWordRequest(this.languageFromValue.language.name, this.languageFromValue.language.code, this.languageFromValue.word);
+    const wordValues = this.languageFromValue.words.map((word: any) => word.word);
+    const request = new CreateWordRequest(this.languageFromValue.language.name, this.languageFromValue.language.code, wordValues);
     request.languagesTo = this.languagesToValues;
     this.wordService.create(request).subscribe(
       res=>{
         console.log("Word created");
       }
     );
+  }
+
+  public addWordToTranslatedLanguage(event: any, index: number): void{
+    event.preventDefault();
+    this.getWordsToControl(index).push(this.initWordGroup());
+
+  }
+
+  public addWord(event: any): void{
+    event.preventDefault();
+    this.getWordsFromControl().push(this.initWordGroup());
   }
 
   public selectLanguageTo(selectChange: MatSelectChange, index: number): void{
@@ -77,6 +90,14 @@ export class CreateWordComponent implements OnInit {
     });
   }
 
+  public getWordsToControl(index: number): FormArray{
+    return this.createWordForm.controls['languagesTo'].get([index])?.get('words') as FormArray;
+  }
+
+  public getWordsFromControl(): FormArray{
+    return this.createWordForm.controls['languageFrom'].get('words') as FormArray;
+  }
+
   private initCreateWordForm(): void{
     this.createWordForm = this.formBuilder.group({
       languageFrom: this.initLanguageFields(),
@@ -90,9 +111,9 @@ export class CreateWordComponent implements OnInit {
         name: '',
         code: '',
         createAt: ''
-      }),
+      }, Validators.required),
       languages: [],
-      word: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(500)]]
+      words: this.formBuilder.array([this.initWordGroup()])
     });
   }
 
@@ -106,23 +127,34 @@ export class CreateWordComponent implements OnInit {
     );
   }
 
-  get languagesToControls(){
-    return this.createWordForm.controls['languagesTo'] as FormArray;
-  }
-
-  get languageFromValue(): any{
-    return this.createWordForm.get('languageFrom')?.value;
+  private initWordGroup(): FormGroup{
+    return this.formBuilder.group({
+      word: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(500)]]
+    })
   }
 
   private setLanguagesForElementByIndex(value: LanguageDTO[], index: number){
     this.createWordForm.get(`languagesTo.${index}.${LANGUAGES_CONTROL}`)?.setValue(value);
   }
 
+  get languagesToControls(){
+    return this.createWordForm.controls['languagesTo'] as FormArray;
+  }
+
+  get languagesFromControls(){
+    return this.createWordForm.controls['languageFrom'].get('words') as FormArray;
+  }
+
+  get languageFromValue(): any{
+    return this.createWordForm.get('languageFrom')?.value;
+  }
+
   get languagesToValues(): CreateWordRequest[]{
     const value = this.createWordForm.get('languagesTo')?.value;
     const translatedWords: CreateWordRequest[] = [];
     value.forEach((languageTo:any) => {
-      const wordRequest = new CreateWordRequest(languageTo.language.name, languageTo.language.code, languageTo.word);
+      const wordValues = languageTo.words.map((word: any) => word.word);
+      const wordRequest = new CreateWordRequest(languageTo.language.name, languageTo.language.code, wordValues);
       translatedWords.push(wordRequest);
     });
     return translatedWords;

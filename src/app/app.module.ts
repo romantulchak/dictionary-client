@@ -23,6 +23,7 @@ import {MatTableModule} from '@angular/material/table';
 import { CreateWordComponent } from './component/profile/create-word/create-word.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
+import { TopNavComponent } from './component/nav/top-nav/top-nav.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {MatChipsModule} from '@angular/material/chips';
     UserInfoComponent,
     NotFoundComponent,
     LanguagesComponent,
-    CreateWordComponent
+    CreateWordComponent,
+    TopNavComponent
   ],
   imports: [
     BrowserModule,

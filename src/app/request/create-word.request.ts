@@ -3,12 +3,12 @@ import { LanguageDTO } from "../dto/language.dto";
 export class CreateWordRequest{
     public name: string;
     public code: string;
-    public word: string;
+    public words: string[];
     public languagesTo: CreateWordRequest[];
 
-    constructor(name: string, code: string, word: string){
+    constructor(name: string, code: string, words: string[]){
         this.name = name;
         this.code = code;
-        this.word = word;
+        this.words = words;
     }
 }

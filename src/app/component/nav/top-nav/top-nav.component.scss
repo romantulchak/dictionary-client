@@ -1,0 +1,26 @@
+.top_nav{
+    z-index: 1;
+    background: #fff;
+    position: sticky;
+    top: 0;
+
+    ul{
+        padding: 0.5em 3.5em;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        border-bottom: 1px solid #d0dfd3;
+        li{
+            &:not(:last-child){
+                margin-right: 1em;
+            }
+            a{
+                display: flex;
+            }
+        }
+    }
+}
+
+.active{
+    color: #8295f5;
+}
