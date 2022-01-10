@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {HttpClientModule} from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +23,7 @@ import { CreateWordComponent } from './component/profile/create-word/create-word
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
 import { TopNavComponent } from './component/nav/top-nav/top-nav.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,8 @@ import { TopNavComponent } from './component/nav/top-nav/top-nav.component';
     FormsModule,
     MatTableModule,
     MatSelectModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

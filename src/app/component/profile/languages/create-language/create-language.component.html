@@ -1,7 +1,6 @@
 <section class="language__section">
   <h3 class="title">Create Language</h3>
   <form [formGroup]="languageForm">
-    <h3 *ngIf="errorMessage">{{errorMessage}}</h3>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Language name</mat-label>
       <input type="text" matInput formControlName="name" placeholder="language name">

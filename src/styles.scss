@@ -1,30 +1,69 @@
 @import url('assets/scss/fonts.scss');
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@mixin message($background, $color) {
+  background: $background;
+  color: $color;
 
-*{
-    padding: 0;
-    margin: 0;
+  button {
+    color: $color;
+  }
 }
 
-ul{
-    list-style-type: none;
+html,
+body {
+  height: 100%;
 }
 
-a{
-    text-decoration: none;
-    text-transform: none;
-    color: inherit;
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-h3, .mat-subheading-2, .mat-typography .title{
-    text-align: center;
-    font-weight: 900;
-    letter-spacing: 1px;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.container{
-    max-width: 1600px;
-    margin: 0 auto;
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  text-transform: none;
+  color: inherit;
+}
+
+.mat-h3,
+.mat-subheading-2,
+.mat-typography .title {
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+
+.edit__btn {
+  color: #039bf4;
+}
+
+.delete__btn {
+  color: #f44336;
+}
+
+.error__message {
+  @include message(#f44336, #fff);
+}
+
+.warning__message {
+  @include message(#ffc107, #000);
+}
+
+.success__message {
+    @include message(#28a745, #fff);
 }

@@ -4,7 +4,7 @@
       <a routerLink="/profile/user-info"> <mat-icon>person</mat-icon> Profile</a>
     </li>
     <li routerLinkActive="active">
-      <a routerLink="/profile/languages"> <mat-icon>spellcheck</mat-icon> All languages</a>
+      <a routerLink="/profile/languages"> <mat-icon>spellcheck</mat-icon>Languages</a>
     </li>
     <li routerLinkActive="active" *ngIf="userPrivileges?.isAdmin || userPrivileges?.isModerator">
       <a routerLink="/profile/create-language"><mat-icon>language</mat-icon> Create language</a>

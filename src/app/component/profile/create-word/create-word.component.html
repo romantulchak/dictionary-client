@@ -19,24 +19,26 @@
         </div>
         <div>
           <div formArrayName="words">
-            <ng-container *ngFor="let word of languagesFromControls.controls; let i = index">
-              <div [formGroupName]="i">
-                <mat-form-field class="word__field" appearance="fill">
-                  <mat-label>Word</mat-label>
-                  <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-                  <mat-error *ngIf="word.get('word')?.hasError('required')">
-                    Word is <strong>required</strong>
-                  </mat-error>
-                  <mat-error *ngIf="word.get('word')?.hasError('minlength')">
-                    Word min lengths is <strong>1</strong>
-                  </mat-error>
-                  <mat-error *ngIf="word.get('word')?.hasError('maxlength')">
-                    Word max lengths is <strong>500</strong>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-            </ng-container>
+            <div [class.word__remove_block]="i >= 1" *ngFor="let word of languagesFromControls.controls; let i = index"
+              [formGroupName]="i">
+              <mat-form-field class="word__field" appearance="fill">
+                <mat-label>Word</mat-label>
+                <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                <mat-error *ngIf="word.get('word')?.hasError('required')">
+                  Word is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="word.get('word')?.hasError('minlength')">
+                  Word min lengths is <strong>1</strong>
+                </mat-error>
+                <mat-error *ngIf="word.get('word')?.hasError('maxlength')">
+                  Word max lengths is <strong>500</strong>
+                </mat-error>
+              </mat-form-field>
+              <button *ngIf="i >= 1" title="Remove word" mat-stroked-button (click)="removeWord(i)">
+                <mat-icon class="delete__btn">close</mat-icon>
+              </button>
+            </div>
             <div class="add__button_block">
               <button mat-stroked-button (click)="addWord($event)" color="add-word">Add word</button>
             </div>
@@ -74,7 +76,8 @@
             </mat-form-field>
           </div>
           <div formArrayName="words">
-            <div [formGroupName]="j" *ngFor="let word of getWordsToControl(i).controls let j = index">
+            <div [class.word__remove_block]="j >= 1" [formGroupName]="j"
+              *ngFor="let word of getWordsToControl(i).controls let j = index">
               <mat-form-field class="word__field" appearance="fill">
                 <mat-label>Word</mat-label>
                 <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
@@ -89,9 +92,14 @@
                   Word max lengths is <strong>500</strong>
                 </mat-error>
               </mat-form-field>
+              <button *ngIf="j >= 1" title="Remove word" mat-stroked-button
+                (click)="removeWordFromTranslatedLanguage(i, j)">
+                <mat-icon class="delete__btn">close</mat-icon>
+              </button>
             </div>
             <div class="add__button_block">
-              <button mat-stroked-button (click)="addWordToTranslatedLanguage($event, i)" color="add-word">Add word</button>
+              <button mat-stroked-button (click)="addWordToTranslatedLanguage($event, i)" color="add-word">Add
+                word</button>
             </div>
           </div>
         </div>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { LanguageDTO } from 'src/app/dto/language.dto';
 import { CreateWordRequest } from 'src/app/request/create-word.request';
 import { LanguageService } from 'src/app/service/language.service';
+import { SnackbarService } from 'src/app/service/snack-bar.service';
 import { WordService } from 'src/app/service/word.service';
 
 const LANGUAGES_CONTROL = 'languages';
@@ -25,7 +26,8 @@ export class CreateWordComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private languageService: LanguageService,
-              private wordService: WordService) { }
+              private wordService: WordService,
+              private snackbarService: SnackbarService) { }
 
   ngOnInit(): void {
     this.getLanguages();
@@ -60,10 +62,21 @@ export class CreateWordComponent implements OnInit {
     const request = new CreateWordRequest(this.languageFromValue.language.name, this.languageFromValue.language.code, wordValues);
     request.languagesTo = this.languagesToValues;
     this.wordService.create(request).subscribe(
-      res=>{
-        console.log("Word created");
+      ()=>{
+        this.snackbarService.showSuccessMessage('Word has been created!')
+      },
+      error =>{
+        this.snackbarService.showErrorMessage(error.error.message);
       }
     );
+  }
+
+  public removeWord(wordIndex: number): void{
+    this.getWordsFromControl().removeAt(wordIndex);
+  }
+
+  public removeWordFromTranslatedLanguage(languageIndex: number, wordIndex: number): void{
+    this.getWordsToControl(languageIndex).removeAt(wordIndex);
   }
 
   public addWordToTranslatedLanguage(event: any, index: number): void{
