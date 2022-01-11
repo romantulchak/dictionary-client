@@ -3,7 +3,7 @@
   <form [formGroup]="translateWordForm" #form="ngForm" (ngSubmit)="translate()">
     <div class="translate__block">
       <div>
-          <h3 class="title">Translate from</h3>
+        <h3 class="title">Translate from</h3>
         <div>
           <mat-form-field appearance="fill">
             <mat-label>Translate from</mat-label>
@@ -33,7 +33,9 @@
         </div>
       </div>
       <div class="functional__bnt_block">
-        <button mat-stroked-button color="swap-language" class="swap__languages" (click)="swapLanguage($event)"><mat-icon>repeat</mat-icon></button>
+        <button mat-stroked-button color="swap-language" class="swap__languages" (click)="swapLanguage($event)">
+          <mat-icon>repeat</mat-icon>
+        </button>
         <button mat-stroked-button color="primary" [disabled]="form.invalid" type="submit">Translate</button>
       </div>
       <div>
@@ -51,9 +53,20 @@
           </mat-form-field>
         </div>
         <div class="translated__words">
-          <mat-chip-list aria-label="Translated words">
-            <mat-chip *ngFor="let translatedWord of translatedWords" color="primary" selected>{{translatedWord}}</mat-chip>
-          </mat-chip-list>
+          <ng-container *ngIf="translatedWords !== undefined && translatedWords.length <= 4; else showChips">
+            <div class="card" *ngFor="let translatedWord of translatedWords">
+              <h3>{{translatedWord}}</h3>
+            </div>
+          </ng-container>
+          <ng-template #showChips>
+            <mat-chip-list aria-label="Translated words">
+              <mat-chip *ngFor="let translatedWord of translatedWords" color="primary" selected>{{translatedWord}}
+              </mat-chip>
+            </mat-chip-list>
+          </ng-template>
+          <ng-container *ngIf="translatedWordNotFound">
+            <h3>{{translatedWordNotFound}}</h3>
+          </ng-container>
         </div>
       </div>
     </div>

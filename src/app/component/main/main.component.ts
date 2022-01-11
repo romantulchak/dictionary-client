@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
   public languages: LanguageDTO[];
   public translateWordForm: FormGroup;
   public translatedWords: string[];
+  public translatedWordNotFound: string;
 
   constructor(private formBuilder: FormBuilder,
               private languageService: LanguageService,
@@ -28,6 +29,10 @@ export class MainComponent implements OnInit {
     this.wordService.translate(this.word, this.languageFrom, this.languageTo).subscribe(
       res => {
         this.translatedWords = res;
+        this.translatedWordNotFound = '';
+      },
+      error => {
+        this.translatedWordNotFound = error.error.message;
       }
     );
   }
