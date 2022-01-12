@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { LanguageDTO } from 'src/app/dto/language.dto';
-import { CreateWordRequest } from 'src/app/request/create-word.request';
+import { CreateWordRequest } from 'src/app/request/word/create-word.request';
 import { LanguageService } from 'src/app/service/language.service';
 import { SnackbarService } from 'src/app/service/snack-bar.service';
 import { WordService } from 'src/app/service/word.service';
@@ -58,8 +58,7 @@ export class CreateWordComponent implements OnInit {
   }
 
   public create(): void{
-    const wordValues = this.languageFromValue.words.map((word: any) => word.word);
-    const request = new CreateWordRequest(this.languageFromValue.language.name, this.languageFromValue.language.code, wordValues);
+    const request = new CreateWordRequest(this.languageFromValue.language.name, this.languageFromValue.language.code, this.languageFromValue.words);
     request.languagesTo = this.languagesToValues;
     this.wordService.create(request).subscribe(
       ()=>{
@@ -142,7 +141,8 @@ export class CreateWordComponent implements OnInit {
 
   private initWordGroup(): FormGroup{
     return this.formBuilder.group({
-      word: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(500)]]
+      word: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
+      description: ['', [Validators.minLength(3), Validators.maxLength(500)]]
     })
   }
 
@@ -166,8 +166,8 @@ export class CreateWordComponent implements OnInit {
     const value = this.createWordForm.get('languagesTo')?.value;
     const translatedWords: CreateWordRequest[] = [];
     value.forEach((languageTo:any) => {
-      const wordValues = languageTo.words.map((word: any) => word.word);
-      const wordRequest = new CreateWordRequest(languageTo.language.name, languageTo.language.code, wordValues);
+      console.log(languageTo.words);
+      const wordRequest = new CreateWordRequest(languageTo.language.name, languageTo.language.code, languageTo.words);
       translatedWords.push(wordRequest);
     });
     return translatedWords;

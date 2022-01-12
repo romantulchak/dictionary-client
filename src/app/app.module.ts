@@ -24,6 +24,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
 import { TopNavComponent } from './component/nav/top-nav/top-nav.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatTableModule,
     MatSelectModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatFormFieldModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

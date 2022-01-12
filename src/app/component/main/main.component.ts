@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LanguageDTO} from 'src/app/dto/language.dto';
+import { WordDTO } from 'src/app/dto/word.dto';
 import {LanguageService} from 'src/app/service/language.service';
 import {WordService} from 'src/app/service/word.service';
 
@@ -13,7 +14,7 @@ export class MainComponent implements OnInit {
 
   public languages: LanguageDTO[];
   public translateWordForm: FormGroup;
-  public translatedWords: string[];
+  public translatedWords: WordDTO[];
   public translatedWordNotFound: string;
 
   constructor(private formBuilder: FormBuilder,

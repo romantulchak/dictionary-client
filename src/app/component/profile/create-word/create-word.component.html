@@ -38,6 +38,14 @@
               <button *ngIf="i >= 1" title="Remove word" mat-stroked-button (click)="removeWord(i)">
                 <mat-icon class="delete__btn">close</mat-icon>
               </button>
+              <mat-form-field class="description" appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea formControlName="description" #message matInput cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                  maxlength="500">
+                </textarea>
+                <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
+              </mat-form-field>
             </div>
             <div class="add__button_block">
               <button mat-stroked-button (click)="addWord($event)" color="add-word">Add word</button>
@@ -81,7 +89,7 @@
               <mat-form-field class="word__field" appearance="fill">
                 <mat-label>Word</mat-label>
                 <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" maxlength=""></textarea>
                 <mat-error *ngIf="languageTo.get('words.'+j+'.word')?.hasError('required')">
                   Word is <strong>required</strong>
                 </mat-error>
@@ -96,6 +104,14 @@
                 (click)="removeWordFromTranslatedLanguage(i, j)">
                 <mat-icon class="delete__btn">close</mat-icon>
               </button>
+              <mat-form-field class="description" appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea formControlName="description" #message matInput cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                  maxlength="500">
+                </textarea>
+                <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
+              </mat-form-field>
             </div>
             <div class="add__button_block">
               <button mat-stroked-button (click)="addWordToTranslatedLanguage($event, i)" color="add-word">Add

@@ -22,7 +22,7 @@
         border: 1px solid rgb(187 187 187 / 46%);
         padding: 1em;
         border-radius: 4px;
-        
+
         &:not(:last-child){
             margin-bottom: 1em;
         }
@@ -44,4 +44,8 @@
     .mat-add-word{
         color: #3ab783;
     }
+}
+
+.description{
+    width: 270px;
 }
