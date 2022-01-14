@@ -54,14 +54,13 @@
         </div>
         <div class="translated__words">
           <ng-container *ngIf="translatedWords !== undefined && translatedWords.length <= 4; else showChips">
-            <div class="card" [title]="translatedWord.description" *ngFor="let translatedWord of translatedWords">
+            <div class="card" [title]="translatedWord.description" *ngFor="let translatedWord of translatedWords" (click)="copyToClipboard(translatedWord.name)">
               <h3>{{translatedWord.name}}</h3>
             </div>
           </ng-container>
           <ng-template #showChips>
             <mat-chip-list aria-label="Translated words">
-              <mat-chip *ngFor="let translatedWord of translatedWords" color="primary" selected>{{translatedWord}}
-              </mat-chip>
+              <mat-chip [cdkCopyToClipboard]="translatedWord.name" *ngFor="let translatedWord of translatedWords" color="primary" (click)="copyToClipboard(translatedWord.name)">{{translatedWord.name}}</mat-chip>
             </mat-chip-list>
           </ng-template>
           <ng-container *ngIf="translatedWordNotFound">

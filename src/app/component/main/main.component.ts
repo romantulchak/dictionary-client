@@ -1,8 +1,10 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LanguageDTO} from 'src/app/dto/language.dto';
 import { WordDTO } from 'src/app/dto/word.dto';
 import {LanguageService} from 'src/app/service/language.service';
+import { SnackbarService } from 'src/app/service/snack-bar.service';
 import {WordService} from 'src/app/service/word.service';
 
 @Component({
@@ -19,7 +21,9 @@ export class MainComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private languageService: LanguageService,
-              private wordService: WordService) { }
+              private wordService: WordService,
+              private clipboard: Clipboard,
+              private snackbarService: SnackbarService) { }
 
   ngOnInit(): void {
     this.getLanguages();
@@ -43,6 +47,11 @@ export class MainComponent implements OnInit {
     const languageFrom = this.languages.find(language => language.code === this.languageFrom);
     const languageTo = this.languages.find(language => language.code === this.languageTo);
     [this.languageFrom, this.languageTo] = [languageTo, languageFrom];
+  }
+
+  public copyToClipboard(word: string): void {
+    this.clipboard.copy(word);
+    this.snackbarService.showSuccessMessage(`${word} has been copied to clipboard!`)
   }
 
   private initTranslateForm(): void {

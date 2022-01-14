@@ -26,4 +26,8 @@ export class LanguageService{
     public getAllLanguages(): Observable<LanguageDTO[]>{
         return this.http.get<LanguageDTO[]>(`${API_URL}language/all`);
     }
+
+    public delete(id: number): Observable<void>{
+        return this.http.delete<void>(`${API_URL}language/${id}`);
+    }
 }
