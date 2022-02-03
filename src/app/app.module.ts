@@ -26,6 +26,7 @@ import { TopNavComponent } from './component/nav/top-nav/top-nav.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { PaginationComponent } from './component/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     NotFoundComponent,
     LanguagesComponent,
     CreateWordComponent,
-    TopNavComponent
+    TopNavComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatChipsModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    ClipboardModule
+    ClipboardModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

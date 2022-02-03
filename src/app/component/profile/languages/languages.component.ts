@@ -13,7 +13,7 @@ export class LanguagesComponent implements OnInit {
   @Input() languages: LanguageDTO[];
   public displayedColumns: string[] = ['code', 'name', 'createAt', 'updatedAt', 'edit', 'delete'];
   public totalPages: number;
-  private currentPage: number = 0;
+  public currentPage: number = 0;
   private pageSize: number = 10;
 
   constructor(private languageService: LanguageService,
@@ -33,6 +33,10 @@ export class LanguagesComponent implements OnInit {
     );
   }
 
+  public changePage(page: number){
+    this.currentPage = page;
+  }
+
   private getAllLanguages(): void {
     this.languageService.getLanguagesWithPrivileges(this.currentPage, this.pageSize).subscribe(
       res=>{
@@ -48,4 +52,5 @@ export class LanguagesComponent implements OnInit {
       }
     );
   }
+
 }

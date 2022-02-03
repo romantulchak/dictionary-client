@@ -28,5 +28,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-
+      <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (changePage)="changePage($event)"></app-pagination>
 </section>
