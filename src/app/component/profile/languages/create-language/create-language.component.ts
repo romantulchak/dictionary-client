@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LanguageDTO } from 'src/app/dto/language.dto';
 import { CountryFlag } from 'src/app/model/country-flag.model';
 import { CreateLanguageRequest } from 'src/app/request/create-language.request';
@@ -17,6 +17,7 @@ export class CreateLanguageComponent implements OnInit {
   public selectedFlag: CountryFlag;
   public languageForm: FormGroup;
   public languages: LanguageDTO[];
+  @ViewChild('languageFromComponent') languageFromComponent: NgForm;
 
   constructor(private languageService: LanguageService,
               private formBuilder: FormBuilder,
@@ -40,6 +41,7 @@ export class CreateLanguageComponent implements OnInit {
             this.languages.push(createLanguageRequest);
             this.flags = this.flags.filter(flag => flag.code != this.code.value);
             this.snackbarService.showSuccessMessage('Language has been created!');
+            this.languageFromComponent.resetForm();
           },
           error=>{
             this.snackbarService.showErrorMessage(error.error.message);

@@ -75,3 +75,9 @@ a {
 mat-icon{
   cursor: pointer;
 }
+
+.mat-form-field-appearance-outline {
+  .mat-form-field-outline{
+    color: rgb(130 149 245 / 55%) !important;
+  }
+}

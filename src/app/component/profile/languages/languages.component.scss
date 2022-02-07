@@ -9,3 +9,16 @@
         width: 75px;
     }
 }
+
+.languages__btn{
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .title{
+        align-self: center;
+        margin: 0;
+    }
+}

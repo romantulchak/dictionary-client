@@ -34,11 +34,11 @@ export class LanguagesComponent implements OnInit {
   }
 
   public changePage(page: number){
-    this.currentPage = page;
+    this.getAllLanguages(page);    
   }
 
-  private getAllLanguages(): void {
-    this.languageService.getLanguagesWithPrivileges(this.currentPage, this.pageSize).subscribe(
+  private getAllLanguages(page: number = this.currentPage): void {
+    this.languageService.getLanguagesWithPrivileges(page, this.pageSize).subscribe(
       res=>{
         this.languages = res;
       }

@@ -7,7 +7,7 @@
           <h3><span class="flag-icon flag-icon-{{createWordForm?.value?.languageFrom?.language?.code}}"></span>
             {{createWordForm?.value?.languageFrom?.language?.name}}
           </h3>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>From Language</mat-label>
             <mat-select formControlName="language" (selectionChange)="selectLanguageFrom($event)">
               <mat-option *ngFor="let language of languagesFrom" [value]="language">{{language.name}}</mat-option>
@@ -21,7 +21,7 @@
           <div formArrayName="words">
             <div [class.word__remove_block]="i >= 1" *ngFor="let word of languagesFromControls.controls; let i = index"
               [formGroupName]="i">
-              <mat-form-field class="word__field" appearance="fill">
+              <mat-form-field class="word__field" appearance="outline">
                 <mat-label>Word</mat-label>
                 <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                   cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
@@ -38,7 +38,7 @@
               <button *ngIf="i >= 1" title="Remove word" mat-stroked-button (click)="removeWord(i)">
                 <mat-icon class="delete__btn">close</mat-icon>
               </button>
-              <mat-form-field class="description" appearance="fill">
+              <mat-form-field class="description" appearance="outline">
                 <mat-label>Description</mat-label>
                 <textarea formControlName="description" #message matInput cdkTextareaAutosize
                   #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
@@ -61,6 +61,7 @@
         </button>
         <div class="translate__block" *ngFor="let languageTo of languagesToControls.controls; let i = index"
           [formGroupName]="i">
+          <button *ngIf="i >= 1" (click)="removeLanguageBlock(i)" class="remove__language_btn"><mat-icon>clear</mat-icon></button>
           <div class="language__field_block">
             <h3>
               <span *ngIf="languageTo?.value?.language">
@@ -71,7 +72,7 @@
                 Choose Language
               </span>
             </h3>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>Language</mat-label>
               <mat-select formControlName="language" (selectionChange)="selectLanguageTo($event, i)">
                 <mat-option *ngFor="let language of createWordForm.get('languagesTo.'+i+'.languages')?.value"
@@ -86,7 +87,7 @@
           <div formArrayName="words">
             <div [class.word__remove_block]="j >= 1" [formGroupName]="j"
               *ngFor="let word of getWordsToControl(i).controls let j = index">
-              <mat-form-field class="word__field" appearance="fill">
+              <mat-form-field class="word__field" appearance="outline">
                 <mat-label>Word</mat-label>
                 <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                   cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" maxlength=""></textarea>
@@ -104,7 +105,7 @@
                 (click)="removeWordFromTranslatedLanguage(i, j)">
                 <mat-icon class="delete__btn">close</mat-icon>
               </button>
-              <mat-form-field class="description" appearance="fill">
+              <mat-form-field class="description" appearance="outline">
                 <mat-label>Description</mat-label>
                 <textarea formControlName="description" #message matInput cdkTextareaAutosize
                   #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
@@ -114,8 +115,7 @@
               </mat-form-field>
             </div>
             <div class="add__button_block">
-              <button mat-stroked-button (click)="addWordToTranslatedLanguage($event, i)" color="add-word">Add
-                word</button>
+              <button mat-stroked-button (click)="addWordToTranslatedLanguage($event, i)" color="add-word">Add word</button>
             </div>
           </div>
         </div>

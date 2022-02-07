@@ -70,6 +70,11 @@ export class CreateWordComponent implements OnInit {
     );
   }
 
+  public removeLanguageBlock(index: number): void{
+    this.languagesToControls.removeAt(index);
+    this.currentAddLanguagesLength--;
+  }
+
   public removeWord(wordIndex: number): void{
     this.getWordsFromControl().removeAt(wordIndex);
   }

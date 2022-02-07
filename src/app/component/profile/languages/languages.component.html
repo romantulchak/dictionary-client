@@ -1,5 +1,8 @@
 <section class="languages__section">
-    <h3 class="title">All languages</h3>
+    <div class="languages__btn">
+      <h3 class="title">All languages</h3>
+      <button mat-raised-button routerLink="/profile/create-language">Create</button>
+    </div>
     <table *ngIf="languages" mat-table [dataSource]="languages" class="mat-elevation-z8 languages__table">
         <ng-container matColumnDef="code">
           <th scope="col" mat-header-cell *matHeaderCellDef class="country__column"> Country </th>

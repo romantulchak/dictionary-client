@@ -1,51 +1,80 @@
-.create__word_form{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5em;
-    .word__field{
-        width: 100%;
-    }
+.create__word_form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5em;
 
-    .language__field_block{
-        text-align: center;
-    }
+  .word__field {
+    width: 100%;
+  }
 
-    .add__language_btn{
-        position: fixed;
-        right: 25px;
-        bottom: 25px;
-        background-color: #8295f5;
-        z-index: 1;
-    }
-
-    .translate__block{
-        border: 1px solid rgb(187 187 187 / 46%);
-        padding: 1em;
-        border-radius: 4px;
-
-        &:not(:last-child){
-            margin-bottom: 1em;
-        }
-    }
-}
-.word__remove_block{
-    display: grid;
-    grid-template-columns: 1fr 50px;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 10px 10px 0;
-
-    button{
-        margin-bottom: 20px;
-    }
-}
-.add__button_block{
+  .language__field_block {
     text-align: center;
-    .mat-add-word{
-        color: #3ab783;
+  }
+
+  .add__language_btn {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background-color: #8295f5;
+    z-index: 1;
+  }
+
+  .translate__block {
+    border: 1px solid rgb(187 187 187 / 46%);
+    padding: 1em;
+    border-radius: 4px;
+    position: relative;
+
+    .remove__language_btn {
+      background: #ff00008c;
+      position: absolute;
+      right: -12px;
+      top: -12px;
+      border: none;
+      border-radius: 26px;
+      height: 25px;
+      width: 25px;
+      transition: .4s ease-in;
+
+      mat-icon {
+        color: #fff;
+        font-size: 19px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &:hover{
+          background: #ff0000d3;
+      }
     }
+
+    &:not(:last-child) {
+      margin-bottom: 1em;
+    }
+  }
 }
 
-.description{
-    width: 270px;
+.word__remove_block {
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px 10px 0;
+
+  button {
+    margin-bottom: 20px;
+  }
+}
+
+.add__button_block {
+  text-align: center;
+
+  .mat-add-word {
+    color: #3ab783;
+  }
+}
+
+.description {
+  width: 270px;
 }

@@ -1,7 +1,7 @@
 <div>
     <ul class="pagination__list" *ngIf="totalPages > 0">
-        <button [disabled]="currentPage+1 <= totalPages" mat-stroked-button>Previous</button>
+        <button [disabled]="currentPage+1 < totalPages" mat-stroked-button (click)="previousPage()">Previous</button>
         <span>{{currentPage+1}} / {{totalPages}}</span>
-        <button [disabled]="currentPage+1 >= totalPages" mat-stroked-button>Next</button>
+        <button [disabled]="currentPage+1 >= totalPages" mat-stroked-button (click)="nextPage()">Next</button>
     </ul>
 </div>

@@ -15,13 +15,12 @@ export class PaginationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-      console.log(this.totalPages);
-      
   }
 
   public nextPage(): void {
     this.currentPage++;
-    this.changePageEvent.emit(this.currentPage);
+    let page = this.currentPage + 1;
+    this.changePageEvent.emit(page);
   }
 
   public previousPage(): void{

@@ -26,6 +26,9 @@ export class SnackbarService{
     }
 
     private initSnackbar(message: string, action: SnackbarActionType): void{
+        if(message === undefined || message === ""){
+            message = "Something went wrong";
+        }
         this.snackBar.open(message, ACTION, {
             verticalPosition: 'top',
             horizontalPosition: 'end',
