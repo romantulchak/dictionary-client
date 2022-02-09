@@ -44,8 +44,8 @@
         align-items: center;
       }
 
-      &:hover{
-          background: #ff0000d3;
+      &:hover {
+        background: #ff0000d3;
       }
     }
 
@@ -77,4 +77,37 @@
 
 .description {
   width: 270px;
+}
+
+
+.word__record {
+  align-items: baseline;
+  display: flex;
+  gap: 1em;
+
+  .record__block {
+    display: flex;
+    gap: 1em;
+
+    .record__btn {
+      border: 1px solid #d0dfd3;
+      background: none;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: .3s ease-in-out;
+
+      &:hover{
+        background: #f1f1f3;
+      }
+    }
+
+    .start__record_btn {
+      color: rgb(22 22 22 / 63%);
+    }
+
+    .stop__record_btn {
+      color: rgb(241 4 4 / 79%);
+    }
+  }
 }

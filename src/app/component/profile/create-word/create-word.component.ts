@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { LanguageDTO } from 'src/app/dto/language.dto';
 import { CreateWordRequest } from 'src/app/request/word/create-word.request';
 import { LanguageService } from 'src/app/service/language.service';
 import { SnackbarService } from 'src/app/service/snack-bar.service';
 import { WordService } from 'src/app/service/word.service';
+import * as RecordRTC from 'recordrtc';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const LANGUAGES_CONTROL = 'languages';
 const LANGUAGE_CONTROL = 'language';
@@ -23,11 +25,13 @@ export class CreateWordComponent implements OnInit {
   public languages: LanguageDTO[];
   public currentAddLanguagesLength: number = 1;
   private selectedLanguagesTo: LanguageDTO[] = [];
+  private record:any;
 
   constructor(private formBuilder: FormBuilder,
               private languageService: LanguageService,
               private wordService: WordService,
-              private snackbarService: SnackbarService) { }
+              private snackbarService: SnackbarService,
+              private domSanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.getLanguages();
@@ -107,6 +111,47 @@ export class CreateWordComponent implements OnInit {
     });
   }
 
+  public startRecord(event: any, languageIndex: number, wordIndex: number): void{
+    event.preventDefault();
+    this.getWordsToControl(languageIndex).controls[wordIndex].get('isRecording')?.setValue(true);
+    const mediaConstraints = {
+      video: false,
+      audio: true
+      };
+    navigator.mediaDevices.getUserMedia(mediaConstraints).then(this.successCallback.bind(this), this.errorCallback.bind(this));      
+  }
+
+  public stopRecord(event: any, languageIndex: number, wordIndex: number): void{
+    event.preventDefault();
+    this.getWordsToControl(languageIndex).controls[wordIndex].get('isRecording')?.setValue(false);
+    this.record.stop((x:any) => this.processRecording(x, languageIndex, wordIndex));
+  }
+
+  public sanitize(url: string) {
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  private processRecording(blob: Blob, languageIndex: number, wordIndex: number) {
+    const audio = this.getWordsToControl(languageIndex).controls[wordIndex].get('audio');
+    const audioBlob = this.getWordsToControl(languageIndex).controls[wordIndex].get('blob');
+    let url = URL.createObjectURL(blob);
+    audio?.setValue(url);
+    audioBlob?.setValue(blob);
+  }
+
+  private errorCallback(error: any) {
+  }
+
+  private successCallback(stream: any) {
+    var options = {
+      mimeType: "audio/wav",
+      numberOfAudioChannels: 1,
+    };
+    var StereoAudioRecorder = RecordRTC.StereoAudioRecorder;
+    this.record = new StereoAudioRecorder(stream, options);
+    this.record.record();
+  }
+
   public getWordsToControl(index: number): FormArray{
     return this.createWordForm.controls['languagesTo'].get([index])?.get('words') as FormArray;
   }
@@ -147,7 +192,10 @@ export class CreateWordComponent implements OnInit {
   private initWordGroup(): FormGroup{
     return this.formBuilder.group({
       word: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
-      description: ['', [Validators.minLength(3), Validators.maxLength(500)]]
+      description: ['', [Validators.minLength(3), Validators.maxLength(500)]],
+      blob: [''],
+      audio: [''],
+      isRecording: [false]
     })
   }
 

@@ -87,24 +87,39 @@
           <div formArrayName="words">
             <div [class.word__remove_block]="j >= 1" [formGroupName]="j"
               *ngFor="let word of getWordsToControl(i).controls let j = index">
-              <mat-form-field class="word__field" appearance="outline">
-                <mat-label>Word</mat-label>
-                <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" maxlength=""></textarea>
-                <mat-error *ngIf="languageTo.get('words.'+j+'.word')?.hasError('required')">
-                  Word is <strong>required</strong>
-                </mat-error>
-                <mat-error *ngIf="languageTo.get('words.'+j+'.word')?.hasError('minlength')">
-                  Word min lengths is <strong>1</strong>
-                </mat-error>
-                <mat-error *ngIf="languageTo.get('words.'+j+'.word')?.hasError('maxlength')">
-                  Word max lengths is <strong>500</strong>
-                </mat-error>
-              </mat-form-field>
-              <button *ngIf="j >= 1" title="Remove word" mat-stroked-button
-                (click)="removeWordFromTranslatedLanguage(i, j)">
-                <mat-icon class="delete__btn">close</mat-icon>
-              </button>
+              <div class="word__record">
+                <mat-form-field class="word__field" appearance="outline">
+                  <mat-label>Word</mat-label>
+                  <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" maxlength=""></textarea>
+                  <mat-error *ngIf="languageTo.get('words.'+j+'.word')?.hasError('required')">
+                    Word is <strong>required</strong>
+                  </mat-error>
+                  <mat-error *ngIf="languageTo.get('words.'+j+'.word')?.hasError('minlength')">
+                    Word min lengths is <strong>1</strong>
+                  </mat-error>
+                  <mat-error *ngIf="languageTo.get('words.'+j+'.word')?.hasError('maxlength')">
+                    Word max lengths is <strong>500</strong>
+                  </mat-error>
+                </mat-form-field>
+                <div class="record__block">
+                  <button class="record__btn start__record_btn" (click)="startRecord($event, i, j)" *ngIf="!languageTo.get('words.'+j+'.isRecording')?.value">
+                    <mat-icon>record_voice_over</mat-icon>
+                  </button>
+                  <button class="record__btn stop__record_btn" (click)="stopRecord($event, i, j)" *ngIf="languageTo.get('words.'+j+'.isRecording')?.value">
+                    <mat-icon>stop</mat-icon>
+                  </button>
+                  <button *ngIf="j >= 1" title="Remove word" mat-stroked-button
+                    (click)="removeWordFromTranslatedLanguage(i, j)">
+                    <mat-icon class="delete__btn">close</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <audio controls="" *ngIf="languageTo.get('words.'+j+'.audio')?.value">
+                  <source [src]="sanitize(languageTo.get('words.'+j+'.audio')?.value)" type="audio/wav">
+              </audio>
+              </div>
               <mat-form-field class="description" appearance="outline">
                 <mat-label>Description</mat-label>
                 <textarea formControlName="description" #message matInput cdkTextareaAutosize

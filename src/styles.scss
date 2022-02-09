@@ -65,19 +65,20 @@ a {
 }
 
 .success__message {
-    @include message(#28a745, #fff);
+  @include message(#28a745, #fff);
 }
 
-.mat-form-field{
+.mat-form-field {
   margin-bottom: 5px;
 }
 
-mat-icon{
+mat-icon {
   cursor: pointer;
 }
 
 .mat-form-field-appearance-outline {
-  .mat-form-field-outline{
+  .mat-form-field-outline {
+    cursor: pointer;
     color: rgb(130 149 245 / 55%) !important;
   }
 }
