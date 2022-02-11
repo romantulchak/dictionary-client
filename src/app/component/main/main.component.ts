@@ -1,6 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import {LanguageDTO} from 'src/app/dto/language.dto';
 import { WordDTO } from 'src/app/dto/word.dto';
 import {LanguageService} from 'src/app/service/language.service';
@@ -18,12 +19,15 @@ export class MainComponent implements OnInit {
   public translateWordForm: FormGroup;
   public translatedWords: WordDTO[];
   public translatedWordNotFound: string;
+  public audioPlay: boolean = false;
+  public currentIndex: number;
 
   constructor(private formBuilder: FormBuilder,
               private languageService: LanguageService,
               private wordService: WordService,
               private clipboard: Clipboard,
-              private snackbarService: SnackbarService) { }
+              private snackbarService: SnackbarService,
+              private domSanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.getLanguages();
@@ -52,6 +56,22 @@ export class MainComponent implements OnInit {
   public copyToClipboard(word: string): void {
     this.clipboard.copy(word);
     this.snackbarService.showSuccessMessage(`${word} has been copied to clipboard!`)
+  }
+
+  public sanitize(url: string): SafeUrl{
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  public play(pronunciation: string, index: number): void{
+    this.currentIndex = index;
+    this.audioPlay = true;
+    const audio = new Audio();
+    audio.src = pronunciation;
+    audio.load();
+    audio.play();
+    audio.onended = () =>{
+        this.audioPlay = false;
+    }
   }
 
   private initTranslateForm(): void {

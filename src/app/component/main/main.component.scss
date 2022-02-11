@@ -20,11 +20,33 @@
     min-height: 90px;
 
     .card{
-        background: #673ab7;
+        background: #5c75f1;
         border-radius: 10px;
         text-align: center;
         color: #fff;
-        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+
+        h3{
+            margin: 0 10px 0px;
+        }
+
+        .functional__btn{
+            cursor: pointer;
+            display: flex;
+            gap: 1em;
+
+            mat-icon{
+
+                transition: .3s ease-in-out;
+
+                &:hover{
+                    color: #ffd740;
+                }
+            }
+        }
     }
 }
 

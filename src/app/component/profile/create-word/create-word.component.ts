@@ -7,7 +7,7 @@ import { LanguageService } from 'src/app/service/language.service';
 import { SnackbarService } from 'src/app/service/snack-bar.service';
 import { WordService } from 'src/app/service/word.service';
 import * as RecordRTC from 'recordrtc';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 const LANGUAGES_CONTROL = 'languages';
 const LANGUAGE_CONTROL = 'language';
@@ -127,16 +127,20 @@ export class CreateWordComponent implements OnInit {
     this.record.stop((x:any) => this.processRecording(x, languageIndex, wordIndex));
   }
 
-  public sanitize(url: string) {
+  public sanitize(url: string): SafeUrl{
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
   private processRecording(blob: Blob, languageIndex: number, wordIndex: number) {
     const audio = this.getWordsToControl(languageIndex).controls[wordIndex].get('audio');
-    const audioBlob = this.getWordsToControl(languageIndex).controls[wordIndex].get('blob');
+    const audioBlob = this.getWordsToControl(languageIndex).controls[wordIndex].get('source');
     let url = URL.createObjectURL(blob);
     audio?.setValue(url);
-    audioBlob?.setValue(blob);
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onload = (e) => {
+      audioBlob?.setValue(reader.result);
+    }
   }
 
   private errorCallback(error: any) {
@@ -193,7 +197,7 @@ export class CreateWordComponent implements OnInit {
     return this.formBuilder.group({
       word: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
       description: ['', [Validators.minLength(3), Validators.maxLength(500)]],
-      blob: [''],
+      source: [''],
       audio: [''],
       isRecording: [false]
     })
