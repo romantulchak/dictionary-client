@@ -1,6 +1,6 @@
 <section class="main__section">
   <app-top-nav></app-top-nav>
-  <form [formGroup]="translateWordForm" #form="ngForm" (ngSubmit)="translate()">
+  <form [formGroup]="translateWordForm" #form="ngForm">
     <div class="translate__block">
       <div>
         <h3 class="title">Translate from</h3>
@@ -36,7 +36,7 @@
         <button mat-stroked-button color="swap-language" class="swap__languages" (click)="swapLanguage($event)">
           <mat-icon>repeat</mat-icon>
         </button>
-        <button mat-stroked-button color="primary" [disabled]="form.invalid" type="submit">Translate</button>
+        <button mat-stroked-button color="primary" [disabled]="form.invalid" type="submit" (click)="translate()">Translate</button>
       </div>
       <div>
         <h3 class="title">Translate To</h3>
@@ -53,33 +53,15 @@
           </mat-form-field>
         </div>
         <div class="translated__words">
-          <ng-container *ngIf="translatedWords !== undefined && translatedWords.length <= 4; else showChips">
+          <ng-container *ngIf="translatedWords !== undefined">
             <div class="card" [title]="translatedWord.description" *ngFor="let translatedWord of translatedWords; let index = index">
               <h3>{{translatedWord.name}}</h3>
               <div class="functional__btn">
-                <ng-container *ngIf="translatedWord.pronunciation !== ''">
-                  <mat-icon *ngIf="!audioPlay" (click)="play(translatedWord.pronunciation, index)">play_arrow</mat-icon>
-                  <mat-icon *ngIf="audioPlay && currentIndex === index">stop</mat-icon>
-                </ng-container>
+                <app-play-button [size]="'s'" [url]="translatedWord.pronunciation"></app-play-button>
                 <mat-icon [cdkCopyToClipboard]="translatedWord.name" (click)="copyToClipboard(translatedWord.name)">file_copy</mat-icon>
               </div>
             </div>
           </ng-container>
-          <ng-template #showChips>
-            <mat-chip-list aria-label="Translated words">
-              <ng-container *ngFor="let translatedWord of translatedWords; let index = index">
-                <mat-chip color="primary">{{translatedWord.name}}</mat-chip>
-                <div class="functional__btn">
-                  <ng-container *ngIf="translatedWord.pronunciation !== ''">
-                    <mat-icon *ngIf="!audioPlay" (click)="play(translatedWord.pronunciation, index)">play_arrow</mat-icon>
-                    <mat-icon *ngIf="audioPlay && currentIndex === index">stop</mat-icon>
-                  </ng-container>
-                  <mat-icon [cdkCopyToClipboard]="translatedWord.name" (click)="copyToClipboard(translatedWord.name)">file_copy</mat-icon>
-                </div>
-              </ng-container>
-            </mat-chip-list>
-    
-          </ng-template>
           <ng-container *ngIf="translatedWordNotFound">
             <h3>{{translatedWordNotFound}}</h3>
           </ng-container>

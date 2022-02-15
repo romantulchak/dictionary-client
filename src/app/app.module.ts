@@ -27,6 +27,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import { PaginationComponent } from './component/pagination/pagination.component';
+import { PlayButtonComponent } from './component/play-button/play-button.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PaginationComponent } from './component/pagination/pagination.component
     LanguagesComponent,
     CreateWordComponent,
     TopNavComponent,
-    PaginationComponent
+    PaginationComponent,
+    PlayButtonComponent
   ],
   imports: [
     BrowserModule,

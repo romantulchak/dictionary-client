@@ -57,7 +57,6 @@
 
 .word__remove_block {
   display: grid;
-  grid-template-columns: 1fr 50px;
   align-items: center;
   gap: 10px;
   padding: 10px 10px 10px 0;
@@ -79,15 +78,28 @@
   width: 270px;
 }
 
+::ng-deep{
+
+  .word__field{
+    .mat-form-field-wrapper{
+      padding-bottom: 0;
+    }  
+  }
+  
+}
 
 .word__record {
-  align-items: baseline;
+  align-items: center;
   display: flex;
   gap: 1em;
 
   .record__block {
     display: flex;
     gap: 1em;
+
+    .play__block{
+      position: relative;
+    }
 
     .record__btn {
       border: 1px solid #d0dfd3;

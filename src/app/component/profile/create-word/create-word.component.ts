@@ -114,39 +114,68 @@ export class CreateWordComponent implements OnInit {
   public startRecord(event: any, languageIndex: number, wordIndex: number): void{
     event.preventDefault();
     this.getWordsToControl(languageIndex).controls[wordIndex].get('isRecording')?.setValue(true);
-    const mediaConstraints = {
-      video: false,
-      audio: true
-      };
-    navigator.mediaDevices.getUserMedia(mediaConstraints).then(this.successCallback.bind(this), this.errorCallback.bind(this));      
+    this.startAudioRecord();
+  }
+
+  public startRecordFrom(event: any, wordIndex: number){
+    event.preventDefault();
+    this.languagesFromControls.controls[wordIndex].get('isRecording')?.setValue(true);
+    this.startAudioRecord();
   }
 
   public stopRecord(event: any, languageIndex: number, wordIndex: number): void{
     event.preventDefault();
     this.getWordsToControl(languageIndex).controls[wordIndex].get('isRecording')?.setValue(false);
-    this.record.stop((x:any) => this.processRecording(x, languageIndex, wordIndex));
+    const audioUrl = this.getWordsToControl(languageIndex).controls[wordIndex].get('audio') as FormControl;
+    const source = this.getWordsToControl(languageIndex).controls[wordIndex].get('source') as FormControl;
+    this.record.stop((blob:any) => this.processRecording(blob, audioUrl, source));
+  }
+
+  public stopRecordFrom(event: any, wordIndex: number){
+    event.preventDefault();
+    this.languagesFromControls.controls[wordIndex].get('isRecording')?.setValue(false);
+    const audioUrl = this.languagesFromControls.controls[wordIndex].get('audio') as FormControl;
+    const source = this.languagesFromControls.controls[wordIndex].get('source') as FormControl;
+    this.record.stop((blob:any) => this.processRecording(blob, audioUrl, source));
   }
 
   public sanitize(url: string): SafeUrl{
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
-  private processRecording(blob: Blob, languageIndex: number, wordIndex: number) {
-    const audio = this.getWordsToControl(languageIndex).controls[wordIndex].get('audio');
-    const audioBlob = this.getWordsToControl(languageIndex).controls[wordIndex].get('source');
+  public play(pronunciation: string): void{
+    // this.audioPlay = true;
+    // const audio = new Audio();
+    // audio.src = pronunciation;
+    // audio.load();
+    // audio.play();
+    // audio.onended = () =>{
+    //     this.audioPlay = false;
+    // }
+  }
+
+  private processRecording(blob: Blob, audioUrl: FormControl, source: FormControl): void{
     let url = URL.createObjectURL(blob);
-    audio?.setValue(url);
+    audioUrl?.setValue(url);
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onload = (e) => {
-      audioBlob?.setValue(reader.result);
+      source?.setValue(reader.result);
     }
   }
 
-  private errorCallback(error: any) {
+  private startAudioRecord(){
+    const mediaConstraints = {
+      video: false,
+      audio: true
+      };
+    navigator.mediaDevices.getUserMedia(mediaConstraints).then(this.successCallback.bind(this), this.errorCallback.bind(this));  
   }
 
-  private successCallback(stream: any) {
+  private errorCallback(error: any): void {
+  }
+
+  private successCallback(stream: any): void {
     var options = {
       mimeType: "audio/wav",
       numberOfAudioChannels: 1,
@@ -199,7 +228,8 @@ export class CreateWordComponent implements OnInit {
       description: ['', [Validators.minLength(3), Validators.maxLength(500)]],
       source: [''],
       audio: [''],
-      isRecording: [false]
+      isRecording: [false],
+      isPlaying: [false]
     })
   }
 
@@ -217,6 +247,11 @@ export class CreateWordComponent implements OnInit {
 
   get languageFromValue(): any{
     return this.createWordForm.get('languageFrom')?.value;
+  }
+
+  get isPlaying(): boolean{
+    return true;
+    // return this.langto
   }
 
   get languagesToValues(): CreateWordRequest[]{

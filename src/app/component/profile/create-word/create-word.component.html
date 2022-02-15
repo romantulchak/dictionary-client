@@ -35,6 +35,14 @@
                   Word max lengths is <strong>500</strong>
                 </mat-error>
               </mat-form-field>
+
+              <button class="record__btn start__record_btn" (click)="startRecordFrom($event, i)" *ngIf="!word.get('isRecording')?.value">
+                <mat-icon>record_voice_over</mat-icon>
+              </button>
+              <button class="record__btn stop__record_btn" (click)="stopRecordFrom($event, i)" *ngIf="word.get('isRecording')?.value">
+                <mat-icon>stop</mat-icon>
+              </button>
+
               <button *ngIf="i >= 1" title="Remove word" mat-stroked-button (click)="removeWord(i)">
                 <mat-icon class="delete__btn">close</mat-icon>
               </button>
@@ -103,22 +111,23 @@
                   </mat-error>
                 </mat-form-field>
                 <div class="record__block">
-                  <button class="record__btn start__record_btn" (click)="startRecord($event, i, j)" *ngIf="!languageTo.get('words.'+j+'.isRecording')?.value">
-                    <mat-icon>record_voice_over</mat-icon>
-                  </button>
-                  <button class="record__btn stop__record_btn" (click)="stopRecord($event, i, j)" *ngIf="languageTo.get('words.'+j+'.isRecording')?.value">
-                    <mat-icon>stop</mat-icon>
-                  </button>
+                  <ng-container *ngIf="!languageTo.get('words.'+j+'.audio')?.value">
+                    <button class="record__btn start__record_btn" (click)="startRecord($event, i, j)" *ngIf="!languageTo.get('words.'+j+'.isRecording')?.value">
+                      <mat-icon>record_voice_over</mat-icon>
+                    </button>
+                    <button class="record__btn stop__record_btn" (click)="stopRecord($event, i, j)" *ngIf="languageTo.get('words.'+j+'.isRecording')?.value">
+                      <mat-icon>stop</mat-icon>
+                    </button>
+                  </ng-container>
+                  <div class="play__block">
+                    <mat-icon class="delete__btn">close</mat-icon>
+                    <app-play-button [size]="'m'" [isBackgroundEnabled]="true" [url]="languageTo.get('words.'+j+'.audio')?.value"></app-play-button>
+                  </div>
                   <button *ngIf="j >= 1" title="Remove word" mat-stroked-button
                     (click)="removeWordFromTranslatedLanguage(i, j)">
                     <mat-icon class="delete__btn">close</mat-icon>
                   </button>
                 </div>
-              </div>
-              <div>
-                <audio controls="" *ngIf="languageTo.get('words.'+j+'.audio')?.value">
-                  <source [src]="sanitize(languageTo.get('words.'+j+'.audio')?.value)" type="audio/wav">
-              </audio>
               </div>
               <mat-form-field class="description" appearance="outline">
                 <mat-label>Description</mat-label>

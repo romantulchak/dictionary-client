@@ -1,0 +1,35 @@
+@mixin buttonSize($size) {
+    width: $size;
+    height: $size;
+
+    mat-icon{
+        width: $size;
+        height: $size;
+        font-size: $size;
+    }
+}
+
+.play{
+    transition: .3s ease-in-out;
+    border: none;
+    background: none;
+    color: #fff;
+    display: flex;
+
+    &:hover{
+        color: #ffd740;
+    }
+}
+
+.small{
+    @include buttonSize(24px);
+}
+
+.medium{
+    @include buttonSize(36px);
+}
+
+.with__background{
+    background: #5c75f1;
+    border-radius: 4px;
+}
