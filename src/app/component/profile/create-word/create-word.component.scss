@@ -60,10 +60,6 @@
   align-items: center;
   gap: 10px;
   padding: 10px 10px 10px 0;
-
-  button {
-    margin-bottom: 20px;
-  }
 }
 
 .add__button_block {
@@ -99,6 +95,23 @@
 
     .play__block{
       position: relative;
+
+      .delete__btn{
+        position: absolute;
+        top: -12px;
+        right: -13px;
+        font-size: 17px;
+        background: #ff00008c;
+        width: 17px;
+        height: 17px;
+        border-radius: 50px;
+        color: #fff;
+        transition: .3 ease-in-out;
+
+        &:hover{
+          background: rgb(241 4 4 / 79%);
+        }
+      }
     }
 
     .record__btn {

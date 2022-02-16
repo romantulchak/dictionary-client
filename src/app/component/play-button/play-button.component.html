@@ -1,7 +1,7 @@
 <button class="play" [class.small]="size === 's'"
                      [class.medium]="size === 'm'"
                      [class.with__background]="isBackgroundEnabled"
-                     type="button" (click)="play()" *ngIf="url">
-    <mat-icon *ngIf="!isAudioPlay">play_arrow</mat-icon>
-    <mat-icon *ngIf="isAudioPlay">stop</mat-icon>
+                     type="button" *ngIf="url">
+    <mat-icon *ngIf="!isAudioPlay" (click)="play()">play_arrow</mat-icon>
+    <mat-icon *ngIf="isAudioPlay" (click)="stop()">stop</mat-icon>
 </button>

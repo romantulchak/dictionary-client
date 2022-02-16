@@ -30,8 +30,7 @@ export class CreateWordComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private languageService: LanguageService,
               private wordService: WordService,
-              private snackbarService: SnackbarService,
-              private domSanitizer: DomSanitizer) { }
+              private snackbarService: SnackbarService) { }
 
   ngOnInit(): void {
     this.getLanguages();
@@ -62,6 +61,7 @@ export class CreateWordComponent implements OnInit {
   }
 
   public create(): void{
+    debugger
     const request = new CreateWordRequest(this.languageFromValue.language.name, this.languageFromValue.language.code, this.languageFromValue.words);
     request.languagesTo = this.languagesToValues;
     this.wordService.create(request).subscribe(
@@ -139,19 +139,21 @@ export class CreateWordComponent implements OnInit {
     this.record.stop((blob:any) => this.processRecording(blob, audioUrl, source));
   }
 
-  public sanitize(url: string): SafeUrl{
-    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  public removeAudioSectionTo(languageIndex: number, wordIndex: number): void{
+    const audioControl = this.languagesToControls.controls[languageIndex].get(`words.${wordIndex}.audio`) as FormControl;
+    const sourceControl = this.languagesToControls.controls[languageIndex].get(`words.${wordIndex}.source`) as FormControl;
+    this.removeAudio(audioControl, sourceControl);
   }
 
-  public play(pronunciation: string): void{
-    // this.audioPlay = true;
-    // const audio = new Audio();
-    // audio.src = pronunciation;
-    // audio.load();
-    // audio.play();
-    // audio.onended = () =>{
-    //     this.audioPlay = false;
-    // }
+  public removeAudioSectionFrom(index: number): void{
+    const audioControl = this.languagesFromControls.controls[index].get('audio') as FormControl;
+    const sourceControl = this.languagesFromControls.controls[index].get('source') as FormControl;
+    this.removeAudio(audioControl, sourceControl);
+  }
+
+  private removeAudio(audioControl: FormControl, sourceControl: FormControl){
+    audioControl?.setValue("");
+    sourceControl.setValue("");
   }
 
   private processRecording(blob: Blob, audioUrl: FormControl, source: FormControl): void{

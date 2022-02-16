@@ -11,6 +11,7 @@ export class PlayButtonComponent implements OnInit {
   @Input() size: string = "s";
   @Input() isBackgroundEnabled: boolean = false;
   public isAudioPlay: boolean;
+  private audio: HTMLAudioElement;
 
 
   constructor() { }
@@ -22,10 +23,17 @@ export class PlayButtonComponent implements OnInit {
 
   public play(): void{
     this.isAudioPlay = true;
-    const audio = new Audio(this.url);
-    audio.load();
-    audio.play();
-    audio.onended = () =>{
+    this.audio = new Audio(this.url);
+    this.audio.load();
+    this.audio.play();
+    this.audio.onended = () =>{
+      this.isAudioPlay = false;
+    }
+  }
+
+  public stop(): void{
+    if(this.audio){
+      this.audio.pause();
       this.isAudioPlay = false;
     }
   }

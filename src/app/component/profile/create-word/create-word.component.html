@@ -19,33 +19,41 @@
         </div>
         <div>
           <div formArrayName="words">
-            <div [class.word__remove_block]="i >= 1" *ngFor="let word of languagesFromControls.controls; let i = index"
-              [formGroupName]="i">
-              <mat-form-field class="word__field" appearance="outline">
-                <mat-label>Word</mat-label>
-                <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-                <mat-error *ngIf="word.get('word')?.hasError('required')">
-                  Word is <strong>required</strong>
-                </mat-error>
-                <mat-error *ngIf="word.get('word')?.hasError('minlength')">
-                  Word min lengths is <strong>1</strong>
-                </mat-error>
-                <mat-error *ngIf="word.get('word')?.hasError('maxlength')">
-                  Word max lengths is <strong>500</strong>
-                </mat-error>
-              </mat-form-field>
-
-              <button class="record__btn start__record_btn" (click)="startRecordFrom($event, i)" *ngIf="!word.get('isRecording')?.value">
-                <mat-icon>record_voice_over</mat-icon>
-              </button>
-              <button class="record__btn stop__record_btn" (click)="stopRecordFrom($event, i)" *ngIf="word.get('isRecording')?.value">
-                <mat-icon>stop</mat-icon>
-              </button>
-
-              <button *ngIf="i >= 1" title="Remove word" mat-stroked-button (click)="removeWord(i)">
-                <mat-icon class="delete__btn">close</mat-icon>
-              </button>
+            <div [class.word__remove_block]="i >= 1" *ngFor="let word of languagesFromControls.controls; let i = index" [formGroupName]="i">
+              <div class="word__record">
+                <mat-form-field class="word__field" appearance="outline">
+                  <mat-label>Word</mat-label>
+                  <textarea formControlName="word" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                  <mat-error *ngIf="word.get('word')?.hasError('required')">
+                    Word is <strong>required</strong>
+                  </mat-error>
+                  <mat-error *ngIf="word.get('word')?.hasError('minlength')">
+                    Word min lengths is <strong>1</strong>
+                  </mat-error>
+                  <mat-error *ngIf="word.get('word')?.hasError('maxlength')">
+                    Word max lengths is <strong>500</strong>
+                  </mat-error>
+                </mat-form-field>
+                <div class="record__block">
+                  <ng-container *ngIf="!word.get('audio')?.value">
+                    <button class="record__btn start__record_btn" (click)="startRecordFrom($event, i)" *ngIf="!word.get('isRecording')?.value">
+                      <mat-icon>record_voice_over</mat-icon>
+                    </button>
+                    <button class="record__btn stop__record_btn" (click)="stopRecordFrom($event, i)" *ngIf="word.get('isRecording')?.value">
+                      <mat-icon>stop</mat-icon>
+                    </button>
+                  </ng-container>
+                  <div class="play__block" *ngIf="word.get('audio')?.value">
+                    <mat-icon title="Remove audio" class="delete__btn" (click)="removeAudioSectionFrom(i)">close</mat-icon>
+                    <app-play-button [size]="'m'" [isBackgroundEnabled]="true" [url]="word.get('audio')?.value"></app-play-button>
+                  </div>
+                  <button *ngIf="i >= 1" title="Remove word" mat-stroked-button
+                    (click)="removeWord(i)">
+                    <mat-icon class="delete__btn">close</mat-icon>
+                  </button>
+                </div>
+              </div>
               <mat-form-field class="description" appearance="outline">
                 <mat-label>Description</mat-label>
                 <textarea formControlName="description" #message matInput cdkTextareaAutosize
@@ -119,8 +127,8 @@
                       <mat-icon>stop</mat-icon>
                     </button>
                   </ng-container>
-                  <div class="play__block">
-                    <mat-icon class="delete__btn">close</mat-icon>
+                  <div class="play__block" *ngIf="languageTo.get('words.'+j+'.audio')?.value">
+                    <mat-icon title="Remove audio" class="delete__btn" (click)="removeAudioSectionTo(i,j)">close</mat-icon>
                     <app-play-button [size]="'m'" [isBackgroundEnabled]="true" [url]="languageTo.get('words.'+j+'.audio')?.value"></app-play-button>
                   </div>
                   <button *ngIf="j >= 1" title="Remove word" mat-stroked-button
