@@ -16,6 +16,7 @@ export class TokenStorageService{
 
     public signOut(): void{
         localStorage.clear();
+        sessionStorage.clear();
     }
 
     public saveToken(token: string): void{
@@ -38,6 +39,18 @@ export class TokenStorageService{
             return JSON.parse(jwt);
         }
         return null;
+    }
+
+    public saveRoles(roles: string[]): void{
+        sessionStorage.setItem('roles', JSON.stringify(roles));
+    }
+
+    public getRoles(): string[]{
+        let roles = sessionStorage.getItem('roles');
+        if(roles){
+            return JSON.parse(roles)
+        }
+        return [];
     }
 
 }

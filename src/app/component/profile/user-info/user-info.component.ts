@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDTO } from 'src/app/dto/user.dto';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-user-info',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserInfoComponent implements OnInit {
 
-  constructor() { }
+  public user: UserDTO;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getUserInfo();
   }
+
+  private getUserInfo(): void{
+    this.userService.getUserInfo().subscribe(
+      res=>{
+        this.user = res;
+      }
+    );
+  }
+
 
 }
