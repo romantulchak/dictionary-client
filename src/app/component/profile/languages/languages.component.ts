@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { LanguageDTO } from 'src/app/dto/language.dto';
 import { LanguageService } from 'src/app/service/language.service';
 import { SnackbarService } from 'src/app/service/snack-bar.service';
@@ -15,13 +16,15 @@ export class LanguagesComponent implements OnInit {
   public totalPages: number;
   public currentPage: number = 0;
   private pageSize: number = 10;
+  private urlParams: Params;
 
   constructor(private languageService: LanguageService,
-              private snackbarService: SnackbarService) { }
+              private snackbarService: SnackbarService,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.getAllLanguages();
-    this.getTotalPagesCount();
+    this.getLanguageQueryType();
   }
 
   public delete(id: number): void {
@@ -33,9 +36,31 @@ export class LanguagesComponent implements OnInit {
     );
   }
 
-  public changePage(page: number){
+  public changePage(page: number) {
     this.getAllLanguages(page);    
   }
+
+  private getLanguageQueryType(): void {
+    this.route.queryParams.subscribe(
+      res=>{
+        if(res.user){
+          this.getUserLanguages();         
+        }else{
+          this.getAllLanguages();
+        }
+        this.urlParams = res;
+      }
+    );
+  }
+
+  private getUserLanguages(page: number = this.currentPage): void {
+    this.languageService.getUserLanguages(page, this.pageSize).subscribe(
+      res=>{
+        this.languages = res;
+      }
+    );    
+    this.getTotalPagesCount(true);
+  } 
 
   private getAllLanguages(page: number = this.currentPage): void {
     this.languageService.getLanguagesWithPrivileges(page, this.pageSize).subscribe(
@@ -43,10 +68,11 @@ export class LanguagesComponent implements OnInit {
         this.languages = res;
       }
     );
+    this.getTotalPagesCount(false);
   }
 
-  private getTotalPagesCount(): void {
-    this.languageService.getTotalPagesCount(this.pageSize).subscribe(
+  private getTotalPagesCount(isForUser: boolean): void {
+    this.languageService.getTotalPagesCount(this.pageSize, isForUser).subscribe(
       res=>{
         this.totalPages = res;
       }

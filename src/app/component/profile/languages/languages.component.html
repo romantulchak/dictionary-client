@@ -3,7 +3,8 @@
       <h3 class="title">All languages</h3>
       <button mat-raised-button routerLink="/profile/create-language">Create</button>
     </div>
-    <table *ngIf="languages" mat-table [dataSource]="languages" class="mat-elevation-z8 languages__table">
+    <ng-container *ngIf="languages && languages.length !== 0; else languagesNotFound">
+      <table mat-table [dataSource]="languages" class="mat-elevation-z8 languages__table">
         <ng-container matColumnDef="code">
           <th scope="col" mat-header-cell *matHeaderCellDef class="country__column"> Country </th>
           <td mat-cell *matCellDef="let element"><span class="flag-icon flag-icon-{{element.code}}"></span></td>
@@ -32,4 +33,8 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (changePage)="changePage($event)"></app-pagination>
+    </ng-container>
+    <ng-template #languagesNotFound>
+      <h3>Languages not found</h3>
+    </ng-template>
 </section>

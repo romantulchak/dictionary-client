@@ -21,7 +21,19 @@
     }
 
     .form__button {
-      justify-self: flex-end;
+      justify-self: center;
+    }
+
+    .account__not_found{
+      margin-top: 15px;
+      font-size: 12px;
+      text-align: center;
+
+      .register__now{
+        color: #6185d7;
+        font-weight: 600;
+        letter-spacing: .5px;
+      }
     }
   }
 }

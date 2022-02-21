@@ -34,13 +34,21 @@ export class LanguageService{
         return this.http.get<LanguageDTO[]>(`${API_URL}/languages-for-panel`, {params: params});
     }
 
-    public getTotalPagesCount(pageSize: number): Observable<number>{
+    public getTotalPagesCount(pageSize: number, isForUser: boolean): Observable<number>{
         let params = new HttpParams();
-        params = params.append('size', pageSize.toString());
+        params = params.append('size', pageSize.toString())
+                        .append('isForUser', isForUser);
         return this.http.get<number>(`${API_URL}/total-pages`, {params: params})
     }
 
     public delete(id: number): Observable<void>{
         return this.http.delete<void>(`${API_URL}/${id}`);
+    }
+    
+    public getUserLanguages(page: number = 0, size: number = 10): Observable<LanguageDTO[]>{
+        let params = new HttpParams();
+        params = params.append('page', page.toString())
+                        .append('size', size);
+        return this.http.get<LanguageDTO[]>(`${API_URL}/for-user`, {params: params});
     }
 }

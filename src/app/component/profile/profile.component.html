@@ -12,6 +12,9 @@
     <li routerLinkActive="active" *ngIf="isAllowAllRoles">
       <a routerLink="/profile/create-word">	<mat-icon>add_box</mat-icon> Create word</a>
     </li>
+    <li (click)="exit()">
+      <span><mat-icon>exit_to_app</mat-icon> Exit</span>
+    </li>
   </ul>
   <div class="profile__right_side">
     <app-top-nav></app-top-nav>

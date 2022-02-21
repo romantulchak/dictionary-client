@@ -12,6 +12,7 @@ import { UserInfoComponent } from './component/profile/user-info/user-info.compo
 import { RouterConstant } from './constants/router.constant';
 import { AdminModeratorGuard } from './guard/admin-moderator.guard';
 import { AuthGuard } from './guard/auth.guard';
+import { LanguageQueryParamGuard } from './guard/language-query-param.guard';
 
 const routes: Routes = [
   {path: RouterConstant.HOME_URL, component: MainComponent},
@@ -22,7 +23,7 @@ const routes: Routes = [
   {path: RouterConstant.PROFILE_URL, component:ProfileComponent, children:[
     {path: RouterConstant.HOME_URL, redirectTo: RouterConstant.USER_INFO_URL, pathMatch: 'full'},
     {path: RouterConstant.USER_INFO_URL, component: UserInfoComponent},
-    {path: RouterConstant.LANGUAGES_URL, component: LanguagesComponent},
+    {path: RouterConstant.LANGUAGES_URL, component: LanguagesComponent, canActivate: [LanguageQueryParamGuard]},
     {path: RouterConstant.CREATE_WORD_URL, component: CreateWordComponent},
     {path: RouterConstant.CREATE_LANGUAGE_URL, component: CreateLanguageComponent, canActivate: [AdminModeratorGuard], data: {roles: ['ROLE_MODERATOR', 'ROLE_ADMIN']}}
   ]},
