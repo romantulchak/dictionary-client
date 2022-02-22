@@ -1,0 +1,18 @@
+.my__words{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1em;
+
+    .word__card{
+    align-items: center;
+        width: 100%;
+        border: 1px solid black;
+        border-radius: 4px;
+        height: 80px;
+
+        .name{
+            font-size: 28px;
+
+        }
+    }
+}

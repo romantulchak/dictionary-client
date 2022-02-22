@@ -6,6 +6,9 @@
     <li routerLinkActive="active">
       <a routerLink="/profile/languages"> <mat-icon>spellcheck</mat-icon>Languages</a>
     </li>
+    <li routerLinkActive="active">
+      <a routerLink="/profile/words"> <mat-icon>text_fields</mat-icon>Words</a>
+    </li>
     <li routerLinkActive="active" *ngIf="userPrivileges?.isAdmin || userPrivileges?.isModerator">
       <a routerLink="/profile/create-language"><mat-icon>language</mat-icon> Create language</a>
     </li>

@@ -28,6 +28,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { PlayButtonComponent } from './component/play-button/play-button.component';
+import { WordsComponent } from './component/profile/words/words.component';
+import { MyWordsComponent } from './component/profile/words/my-words/my-words.component';
+import { AllWordsComponent } from './component/profile/words/all-words/all-words.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { PlayButtonComponent } from './component/play-button/play-button.compone
     CreateWordComponent,
     TopNavComponent,
     PaginationComponent,
-    PlayButtonComponent
+    PlayButtonComponent,
+    WordsComponent,
+    MyWordsComponent,
+    AllWordsComponent
   ],
   imports: [
     BrowserModule,

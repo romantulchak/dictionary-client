@@ -9,6 +9,9 @@ import { CreateLanguageComponent } from './component/profile/languages/create-la
 import { LanguagesComponent } from './component/profile/languages/languages.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { UserInfoComponent } from './component/profile/user-info/user-info.component';
+import { AllWordsComponent } from './component/profile/words/all-words/all-words.component';
+import { MyWordsComponent } from './component/profile/words/my-words/my-words.component';
+import { WordsComponent } from './component/profile/words/words.component';
 import { RouterConstant } from './constants/router.constant';
 import { AdminModeratorGuard } from './guard/admin-moderator.guard';
 import { AuthGuard } from './guard/auth.guard';
@@ -25,7 +28,12 @@ const routes: Routes = [
     {path: RouterConstant.USER_INFO_URL, component: UserInfoComponent},
     {path: RouterConstant.LANGUAGES_URL, component: LanguagesComponent, canActivate: [LanguageQueryParamGuard]},
     {path: RouterConstant.CREATE_WORD_URL, component: CreateWordComponent},
-    {path: RouterConstant.CREATE_LANGUAGE_URL, component: CreateLanguageComponent, canActivate: [AdminModeratorGuard], data: {roles: ['ROLE_MODERATOR', 'ROLE_ADMIN']}}
+    {path: RouterConstant.CREATE_LANGUAGE_URL, component: CreateLanguageComponent, canActivate: [AdminModeratorGuard], data: {roles: ['ROLE_MODERATOR', 'ROLE_ADMIN']}},
+    {path: RouterConstant.WORDS_URL, component: WordsComponent, children:[
+      {path: RouterConstant.HOME_URL, redirectTo: RouterConstant.MY_WORDS_URL, pathMatch: 'full'},
+      {path: RouterConstant.MY_WORDS_URL, component: MyWordsComponent},
+      {path: RouterConstant.ALL_WORDS_URL, component: AllWordsComponent}
+    ]}
   ]},
   {path: RouterConstant.NOT_FOUND_URL, component: NotFoundComponent}
 ];

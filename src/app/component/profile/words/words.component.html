@@ -1,0 +1,15 @@
+<section>
+
+    <nav>
+        <ul class="links">
+            <li class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="all">All words</a>
+            </li>
+            <li class="link" routerLinkActive="active">
+                <a routerLink="my">My words</a>
+            </li>
+        </ul>
+    </nav>
+
+    <router-outlet></router-outlet>
+</section>

@@ -61,7 +61,6 @@ export class CreateWordComponent implements OnInit {
   }
 
   public create(): void{
-    debugger
     const request = new CreateWordRequest(this.languageFromValue.language.name, this.languageFromValue.language.code, this.languageFromValue.words);
     request.languagesTo = this.languagesToValues;
     this.wordService.create(request).subscribe(
@@ -249,11 +248,6 @@ export class CreateWordComponent implements OnInit {
 
   get languageFromValue(): any{
     return this.createWordForm.get('languageFrom')?.value;
-  }
-
-  get isPlaying(): boolean{
-    return true;
-    // return this.langto
   }
 
   get languagesToValues(): CreateWordRequest[]{

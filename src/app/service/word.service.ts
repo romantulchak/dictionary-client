@@ -26,4 +26,8 @@ export class WordService{
         return this.http.get<WordDTO[]>(`${API_URL}word/translate`, {params: params});
     }
 
+    public getUserWords(): Observable<WordDTO[]>{
+        return this.http.get<WordDTO[]>(`${API_URL}word/for-user`)
+    }
+
 }

@@ -9,4 +9,7 @@ export class RouterConstant{
     public static readonly AUTH_URL: string = 'auth';
     public static readonly LOGIN_URL: string = 'login';
     public static readonly REGISTRATION_URL: string = 'registration';
+    public static readonly WORDS_URL: string = 'words';
+    public static readonly MY_WORDS_URL: string = 'my';
+    public static readonly ALL_WORDS_URL: string = 'all';
 }
