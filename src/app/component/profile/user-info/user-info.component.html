@@ -9,9 +9,9 @@
                 <h4>{{user?.email}}</h4>
             </div>
             <div class="created__elements">
-                <div class="created__element">
+                <div routerLink="/profile/words/my" class="created__element">
                     <h5 class="label">Created words</h5>
-                    <a routerLink="/profile/words/my">{{user?.totalCreatedWords}}</a>
+                    <a>{{user?.totalCreatedWords}}</a>
                 </div>
                 <div routerLink="/profile/languages" [queryParams]="{user: true}" class="created__element">
                     <h5 class="label">Created languages</h5>

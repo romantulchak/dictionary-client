@@ -1,5 +1,6 @@
 <section class="create__word_section">
   <h3 class="title">Create Word</h3>
+  <pre>{{createWordForm.value | json}}</pre>
   <form *ngIf="languages !== undefined" [formGroup]="createWordForm" #form="ngForm" (ngSubmit)="form.valid && create()">
     <div class="create__word_form">
       <div formGroupName="languageFrom">

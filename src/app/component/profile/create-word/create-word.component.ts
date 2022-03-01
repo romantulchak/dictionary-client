@@ -160,7 +160,7 @@ export class CreateWordComponent implements OnInit {
     audioUrl?.setValue(url);
     const reader = new FileReader();
     reader.readAsDataURL(blob);
-    reader.onload = (e) => {
+    reader.onload = () => {
       source?.setValue(reader.result);
     }
   }
@@ -230,7 +230,8 @@ export class CreateWordComponent implements OnInit {
       source: [''],
       audio: [''],
       isRecording: [false],
-      isPlaying: [false]
+      isPlaying: [false],
+      exmaples: this.formBuilder.array([])
     })
   }
 

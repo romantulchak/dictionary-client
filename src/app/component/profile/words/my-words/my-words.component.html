@@ -1,5 +1,6 @@
 <section class="my__words">
     <div class="word__card" *ngFor="let word of words">
         <h3 class="name">{{word.name}}</h3>
+        <app-play-button [size]="'m'" [isBackgroundEnabled]="true" [url]="word.pronunciation"></app-play-button>
     </div>
 </section>
