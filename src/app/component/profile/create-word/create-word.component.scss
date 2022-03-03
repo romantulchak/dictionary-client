@@ -1,3 +1,11 @@
+@mixin exmapleButton() {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .create__word_form {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -70,7 +78,7 @@
   }
 }
 
-.description {
+.description, .example {
   width: 270px;
 }
 
@@ -135,4 +143,24 @@
       color: rgb(241 4 4 / 79%);
     }
   }
+}
+
+.example__description_block{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .examples{
+    position: relative;
+  }
+}
+
+.add__example_btn{
+  @include exmapleButton();
+  position: absolute;
+  top: 15px;
+  right: 50px;
+}
+
+.remove__example_btn{
+  @include exmapleButton();
 }

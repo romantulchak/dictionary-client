@@ -190,8 +190,22 @@ export class CreateWordComponent implements OnInit {
     return this.createWordForm.controls['languagesTo'].get([index])?.get('words') as FormArray;
   }
 
+  public  getWordsToControlExamples(languageIndex: number, wordIndex: number): FormArray{
+    return this.createWordForm.controls['languagesTo'].get([languageIndex])?.get('words')?.get([wordIndex])?.get('examples') as FormArray;
+  }
+
   public getWordsFromControl(): FormArray{
     return this.createWordForm.controls['languageFrom'].get('words') as FormArray;
+  }
+
+  public addNewExampleForWordTo(event: any, languageIndex: number, wordIndex: number): void{
+    event.preventDefault();
+    this.getWordsToControlExamples(languageIndex, wordIndex).push(new FormControl(''));
+  }  
+
+  public removeExmapleFromWordsTo(event: any, languageIndex: number, wordIndex: number, exampleIndex: number): void{
+    event.preventDefault();
+    this.getWordsToControlExamples(languageIndex, wordIndex).removeAt(exampleIndex);
   }
 
   private initCreateWordForm(): void{
@@ -231,7 +245,7 @@ export class CreateWordComponent implements OnInit {
       audio: [''],
       isRecording: [false],
       isPlaying: [false],
-      exmaples: this.formBuilder.array([])
+      examples: this.formBuilder.array([''])
     })
   }
 
