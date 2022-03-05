@@ -31,6 +31,8 @@ import { PlayButtonComponent } from './component/play-button/play-button.compone
 import { WordsComponent } from './component/profile/words/words.component';
 import { MyWordsComponent } from './component/profile/words/my-words/my-words.component';
 import { AllWordsComponent } from './component/profile/words/all-words/all-words.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { WordBolderPipe } from './pipe/word-bolder.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { AllWordsComponent } from './component/profile/words/all-words/all-words
     PlayButtonComponent,
     WordsComponent,
     MyWordsComponent,
-    AllWordsComponent
+    AllWordsComponent,
+    WordBolderPipe
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,7 @@ import { AllWordsComponent } from './component/profile/words/all-words/all-words
     MatSnackBarModule,
     MatFormFieldModule,
     ClipboardModule,
+    MatTooltipModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

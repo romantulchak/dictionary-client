@@ -1,9 +1,12 @@
-@mixin exmapleButton() {
+@mixin exmapleButton($right, $top) {
   width: 30px;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  right: $right;
+  top: $top;
 }
 
 .create__word_form {
@@ -154,13 +157,22 @@
   }
 }
 
+.exmaple__remove_block{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+}
+
 .add__example_btn{
-  @include exmapleButton();
-  position: absolute;
-  top: 15px;
-  right: 50px;
+  @include exmapleButton(50px, 15px);
 }
 
 .remove__example_btn{
-  @include exmapleButton();
+  @include exmapleButton(50px, 15px);
+}
+
+::ng-deep{
+  .mat-tooltip{
+    font-size: 13px;
+  }
 }

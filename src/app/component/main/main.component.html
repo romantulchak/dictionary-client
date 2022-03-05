@@ -60,6 +60,11 @@
                 <app-play-button [size]="'s'" [url]="translatedWord.pronunciation"></app-play-button>
                 <mat-icon [cdkCopyToClipboard]="translatedWord.name" (click)="copyToClipboard(translatedWord.name)">file_copy</mat-icon>
               </div>
+
+              <ng-container *ngFor="let example of translatedWord.examples">
+
+                <h3 [innerHTML]="example | wordBolder"></h3>
+              </ng-container>
             </div>
           </ng-container>
           <ng-container *ngIf="translatedWordNotFound">

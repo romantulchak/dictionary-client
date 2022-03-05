@@ -38,6 +38,8 @@ export class MainComponent implements OnInit {
     this.wordService.translate(this.word, this.languageFrom, this.languageTo).subscribe(
       res => {
         this.translatedWords = res;
+        console.log(res);
+        
         this.translatedWordNotFound = '';
       },
       error => {

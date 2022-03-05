@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { LanguageDTO } from 'src/app/dto/language.dto';
 import { CreateWordRequest } from 'src/app/request/word/create-word.request';
@@ -7,7 +7,6 @@ import { LanguageService } from 'src/app/service/language.service';
 import { SnackbarService } from 'src/app/service/snack-bar.service';
 import { WordService } from 'src/app/service/word.service';
 import * as RecordRTC from 'recordrtc';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 const LANGUAGES_CONTROL = 'languages';
 const LANGUAGE_CONTROL = 'language';
@@ -23,6 +22,8 @@ export class CreateWordComponent implements OnInit {
   public selectedLanguageFrom: LanguageDTO;
   public createWordForm: FormGroup;
   public languages: LanguageDTO[];
+  public isTooltipShown: boolean = false;
+  public tooltipPosition: number;
   public currentAddLanguagesLength: number = 1;
   private selectedLanguagesTo: LanguageDTO[] = [];
   private record:any;
@@ -190,12 +191,26 @@ export class CreateWordComponent implements OnInit {
     return this.createWordForm.controls['languagesTo'].get([index])?.get('words') as FormArray;
   }
 
-  public  getWordsToControlExamples(languageIndex: number, wordIndex: number): FormArray{
+  public getWordsToControlExamples(languageIndex: number, wordIndex: number): FormArray{
     return this.createWordForm.controls['languagesTo'].get([languageIndex])?.get('words')?.get([wordIndex])?.get('examples') as FormArray;
   }
 
   public getWordsFromControl(): FormArray{
     return this.createWordForm.controls['languageFrom'].get('words') as FormArray;
+  }
+
+  public getWordsFromControlExamples(wordIndex: number): FormArray{
+    return this.createWordForm.controls['languageFrom'].get('words')?.get([wordIndex])?.get('examples') as FormArray;
+  }
+
+  public addNewExampleForWordFrom(event: any, wordIndex: number): void{
+    event.preventDefault();
+    this.getWordsFromControlExamples(wordIndex).push(new FormControl(''));
+  }  
+
+  public removeExmapleFromWordsFrom(event: any, wordIndex: number, exampleIndex: number): void{
+    event.preventDefault();
+    this.getWordsFromControlExamples(wordIndex).removeAt(exampleIndex);
   }
 
   public addNewExampleForWordTo(event: any, languageIndex: number, wordIndex: number): void{
