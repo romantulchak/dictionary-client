@@ -7,10 +7,12 @@ export class WordBolderPipe implements PipeTransform {
 
   transform(value: string, ...args: unknown[]): unknown {
     const regex = /\|(.*?)\|/g;
-    let toBeModified = value.match(regex);
-    console.log(regex.test(value));
-    return value.replaceAll('|', '<b>')
-                .replaceAll('/', '</b>');
+    let wordCases = value.match(regex);
+    wordCases?.forEach(word =>{
+      let s = `<b>${word.replaceAll('|', '')}</b>`;
+      value = value.replace(word, s);
+    });
+    return value;
   }
 
 }

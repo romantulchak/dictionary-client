@@ -27,12 +27,15 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import { PaginationComponent } from './component/pagination/pagination.component';
-import { PlayButtonComponent } from './component/play-button/play-button.component';
+import { PlayButtonComponent } from './component/button/play-button/play-button.component';
 import { WordsComponent } from './component/profile/words/words.component';
 import { MyWordsComponent } from './component/profile/words/my-words/my-words.component';
 import { AllWordsComponent } from './component/profile/words/all-words/all-words.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { WordBolderPipe } from './pipe/word-bolder.pipe';
+import {MatDialogModule} from '@angular/material/dialog';
+import { WordDetailsComponent } from './component/dialog/word-details/word-details.component';
+import { CopyButtonComponent } from './component/button/copy-button/copy-button.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,9 @@ import { WordBolderPipe } from './pipe/word-bolder.pipe';
     WordsComponent,
     MyWordsComponent,
     AllWordsComponent,
-    WordBolderPipe
+    WordBolderPipe,
+    WordDetailsComponent,
+    CopyButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +75,8 @@ import { WordBolderPipe } from './pipe/word-bolder.pipe';
     MatSnackBarModule,
     MatFormFieldModule,
     ClipboardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

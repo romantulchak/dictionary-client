@@ -55,16 +55,11 @@
         <div class="translated__words">
           <ng-container *ngIf="translatedWords !== undefined">
             <div class="card" [title]="translatedWord.description" *ngFor="let translatedWord of translatedWords; let index = index">
-              <h3>{{translatedWord.name}}</h3>
+              <h3 (click)="showWordDetails(translatedWord)">{{translatedWord.name}}</h3>
               <div class="functional__btn">
                 <app-play-button [size]="'s'" [url]="translatedWord.pronunciation"></app-play-button>
-                <mat-icon [cdkCopyToClipboard]="translatedWord.name" (click)="copyToClipboard(translatedWord.name)">file_copy</mat-icon>
+                <app-copy-button></app-copy-button>
               </div>
-
-              <ng-container *ngFor="let example of translatedWord.examples">
-
-                <h3 [innerHTML]="example | wordBolder"></h3>
-              </ng-container>
             </div>
           </ng-container>
           <ng-container *ngIf="translatedWordNotFound">

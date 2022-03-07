@@ -1,0 +1,50 @@
+%nameDescriptionSettings {
+  padding: 1em;
+}
+
+.name__description {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  border: 2px dashed #b0b0b0bf;
+  border-bottom: 0;
+
+  .name {
+    align-items: center;
+    display: grid;
+    border-right: 2px dashed #b0b0b0bf;
+    @extend %nameDescriptionSettings;
+  }
+
+  .text {
+    margin: 0;
+  }
+
+  .description {
+    @extend %nameDescriptionSettings;
+  }
+}
+
+.examples {
+  border: 2px dashed #b0b0b0bf;
+  min-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .text {
+    text-align: center;
+    margin-top: 1em;
+  }
+
+  .list {
+    padding-left: 3em;
+    font-size: 16px;
+
+    .example {
+
+      em {
+        border-bottom: 2px solid #5c75f1;
+      }
+    }
+  }
+
+}

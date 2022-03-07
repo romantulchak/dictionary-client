@@ -31,20 +31,15 @@
 
     h3 {
       margin: 0 10px 0px;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
     }
 
     .functional__btn {
       cursor: pointer;
       display: flex;
       gap: 1em;
-
-      mat-icon {
-        transition: .3s ease-in-out;
-
-        &:hover {
-          color: #ffd740;
-        }
-      }
     }
   }
 }

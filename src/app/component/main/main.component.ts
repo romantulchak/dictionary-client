@@ -1,12 +1,13 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
 import {LanguageDTO} from 'src/app/dto/language.dto';
 import { WordDTO } from 'src/app/dto/word.dto';
 import {LanguageService} from 'src/app/service/language.service';
 import { SnackbarService } from 'src/app/service/snack-bar.service';
 import {WordService} from 'src/app/service/word.service';
+import { WordDetailsComponent } from '../dialog/word-details/word-details.component';
 
 @Component({
   selector: 'app-main',
@@ -25,9 +26,7 @@ export class MainComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private languageService: LanguageService,
               private wordService: WordService,
-              private clipboard: Clipboard,
-              private snackbarService: SnackbarService,
-              private domSanitizer: DomSanitizer) { }
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getLanguages();
@@ -55,25 +54,12 @@ export class MainComponent implements OnInit {
     [this.languageFrom, this.languageTo] = [languageTo, languageFrom];
   }
 
-  public copyToClipboard(word: string): void {
-    this.clipboard.copy(word);
-    this.snackbarService.showSuccessMessage(`${word} has been copied to clipboard!`)
-  }
-
-  public sanitize(url: string): SafeUrl{
-    return this.domSanitizer.bypassSecurityTrustUrl(url);
-  }
-
-  public play(pronunciation: string, index: number): void{
-    this.currentIndex = index;
-    this.audioPlay = true;
-    const audio = new Audio();
-    audio.src = pronunciation;
-    audio.load();
-    audio.play();
-    audio.onended = () =>{
-        this.audioPlay = false;
-    }
+  public showWordDetails(word: WordDTO): void{
+    this.dialog.open(WordDetailsComponent, {
+      data: word,
+      width: '1000px',
+      height: '400px'
+    });
   }
 
   private initTranslateForm(): void {

@@ -1,0 +1,27 @@
+<section>
+    <div class="name__description">
+        <div class="name">
+            <h2 class="text">Word</h2>
+            <h3 class="text">{{word.name}}</h3>
+            <app-play-button [url]="word.pronunciation" [isBackgroundEnabled]="true"></app-play-button>
+        </div>
+        <div class="description">
+            <h2 class="text">Description</h2>
+            <h4 class="text">
+                <em> {{word.description}} </em>
+            </h4>
+        </div>
+    </div>
+    <div class="examples">
+        <h2 class="text">Examples</h2>
+        <ol class="list" *ngIf="word.examples.length > 0; else examplesEmtpy">
+           <li class="example" *ngFor="let example of word.examples">
+               <em [innerHTML]="example | wordBolder"></em>
+                <app-copy-button [text]="example"></app-copy-button>
+            </li> 
+        </ol>
+    </div>
+    <ng-template #examplesEmtpy>
+        <h2>Exxmples are empty</h2>
+    </ng-template>
+</section>
