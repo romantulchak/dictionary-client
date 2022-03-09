@@ -9,7 +9,8 @@ import { SnackbarService } from 'src/app/service/snack-bar.service';
 })
 export class CopyButtonComponent implements OnInit {
 
-  @Input('text') word: string;
+  @Input('text') text: string;
+  @Input('color') color: string = '#fff';
 
   constructor(private clipboard: Clipboard,
               private snackbarService: SnackbarService) { }
@@ -18,8 +19,8 @@ export class CopyButtonComponent implements OnInit {
   }
 
   public copyToClipboard(): void {
-    this.clipboard.copy(this.word);
-    this.snackbarService.showSuccessMessage(`${this} has been copied to clipboard!`)
+    this.clipboard.copy(this.text);
+    this.snackbarService.showSuccessMessage(`${this.text} has been copied to clipboard!`)
   }
 
 }

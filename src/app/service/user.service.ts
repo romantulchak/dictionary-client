@@ -17,4 +17,8 @@ export class UserService{
     public getUserInfo(): Observable<UserDTO>{
         return this.http.get<UserDTO>(`${API_URL}user/info`);
     }
+
+    public addToPreferred(code: string): Observable<void>{
+        return this.http.put<void>(`${API_URL}user/add-to-preferred`, code);
+    }
 }

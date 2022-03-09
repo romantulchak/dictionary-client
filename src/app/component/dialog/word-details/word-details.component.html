@@ -16,8 +16,10 @@
         <h2 class="text">Examples</h2>
         <ol class="list" *ngIf="word.examples.length > 0; else examplesEmtpy">
            <li class="example" *ngFor="let example of word.examples">
-               <em [innerHTML]="example | wordBolder"></em>
-                <app-copy-button [text]="example"></app-copy-button>
+               <span>
+                <em [innerHTML]="example | wordBolder"></em>
+                <app-copy-button [color]="'rgb(0 0 0 / 54%)'" [text]="example"></app-copy-button>
+               </span>
             </li> 
         </ol>
     </div>

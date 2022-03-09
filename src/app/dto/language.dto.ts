@@ -7,4 +7,5 @@ export class LanguageDTO{
     public createAt?: Date;
     public updateAt?: Date;
     public privileges?: PrivilegesDTO;
+    public isPreferred?: boolean;
 }

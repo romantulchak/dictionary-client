@@ -22,3 +22,20 @@
         margin: 0;
     }
 }
+
+.cdk-column-addToPreferred{
+    text-align: center;
+
+    mat-icon{
+        color: rgb(0 0 0 / 37%);
+        transition: .3s ease-in-out;
+
+        &:hover{
+            color: #ffd740;
+        }
+    }
+
+    .preferred{
+        color: #ffd740;
+    }
+}

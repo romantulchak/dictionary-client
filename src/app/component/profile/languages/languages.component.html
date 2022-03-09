@@ -29,6 +29,11 @@
             <th scope="col" mat-header-cell *matHeaderCellDef class="action__column"> Delete </th>
             <td mat-cell *matCellDef="let element"><mat-icon class="delete__btn" *ngIf="element?.privileges.canDelete" (click)="delete(element.id)">close</mat-icon></td>
           </ng-container>
+          <ng-container matColumnDef="addToPreferred">
+            <th scope="col" mat-header-cell *matHeaderCellDef class="action__column"> To preferred </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon (click)="addToPreferred(element)" [class.preferred]="element?.isPreferred">star</mat-icon>
+          </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>

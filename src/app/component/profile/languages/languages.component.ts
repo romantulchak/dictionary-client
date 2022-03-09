@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { LanguageDTO } from 'src/app/dto/language.dto';
 import { LanguageService } from 'src/app/service/language.service';
 import { SnackbarService } from 'src/app/service/snack-bar.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-languages',
@@ -12,13 +13,14 @@ import { SnackbarService } from 'src/app/service/snack-bar.service';
 export class LanguagesComponent implements OnInit {
 
   @Input() languages: LanguageDTO[];
-  public displayedColumns: string[] = ['code', 'name', 'createAt', 'updatedAt', 'edit', 'delete'];
+  public displayedColumns: string[] = ['code', 'name', 'createAt', 'updatedAt', 'edit', 'delete', 'addToPreferred'];
   public totalPages: number;
   public currentPage: number = 0;
   private pageSize: number = 10;
   private urlParams: Params;
 
   constructor(private languageService: LanguageService,
+              private userService: UserService,
               private snackbarService: SnackbarService,
               private route: ActivatedRoute) {
   }
@@ -36,8 +38,21 @@ export class LanguagesComponent implements OnInit {
     );
   }
 
-  public changePage(page: number) {
+  public changePage(page: number): void { 
     this.getAllLanguages(page);    
+  }
+
+  public addToPreferred(language: LanguageDTO): void{
+    this.userService.addToPreferred(language.code).subscribe(
+      res=>{
+        this.languages.forEach(lang => lang.isPreferred = false);
+        language.isPreferred = true;
+        this.snackbarService.showSuccessMessage(`${language.name} added to preferred!`);
+      },
+      error =>{
+        this.snackbarService.showErrorMessage(error.error.message);
+      }
+    );
   }
 
   private getLanguageQueryType(): void {

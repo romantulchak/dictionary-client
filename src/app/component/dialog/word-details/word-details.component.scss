@@ -40,10 +40,16 @@
     font-size: 16px;
 
     .example {
+      span {
+        display: flex;
+        align-items: center;
+        gap: 1em;
 
-      em {
-        border-bottom: 2px solid #5c75f1;
+        em {
+          border-bottom: 2px solid #5c75f1;
+        }
       }
+
     }
   }
 
