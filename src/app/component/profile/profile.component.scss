@@ -1,6 +1,8 @@
 .active{
     background-color: #8295f5;
-    color: #fff;
+    a{
+        color: #fff  !important;
+    }
 }
 .profile__section{
     display: grid;
@@ -22,6 +24,7 @@
                 text-decoration: none;
                 color: inherit;
                 align-items: center;
+                color: black;
 
                 mat-icon{
                     font-size: 20px;

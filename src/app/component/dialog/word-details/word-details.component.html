@@ -14,7 +14,7 @@
     </div>
     <div class="examples">
         <h2 class="text">Examples</h2>
-        <ol class="list" *ngIf="word.examples.length > 0; else examplesEmtpy">
+        <ol class="list" *ngIf="word?.examples && word.examples.length > 0; else examplesEmtpy">
            <li class="example" *ngFor="let example of word.examples">
                <span>
                 <em [innerHTML]="example | wordBolder"></em>
@@ -24,6 +24,6 @@
         </ol>
     </div>
     <ng-template #examplesEmtpy>
-        <h2>Exxmples are empty</h2>
+        <h2>Examples are empty</h2>
     </ng-template>
 </section>

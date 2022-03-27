@@ -6,7 +6,7 @@ import { LanguageDTO } from "../dto/language.dto";
 import { CountryFlag } from "../model/country-flag.model";
 import { CreateLanguageRequest } from "../request/create-language.request";
 
-const API_URL = environment.API_URL + "language";
+const API_URL = `${environment.API_URL}language`;
 
 @Injectable({
     providedIn:'root'
@@ -50,5 +50,9 @@ export class LanguageService{
         params = params.append('page', page.toString())
                         .append('size', size);
         return this.http.get<LanguageDTO[]>(`${API_URL}/for-user`, {params: params});
+    }
+
+    public getLanguagesWithPreferred(): Observable<LanguageDTO[]>{
+        return this.http.get<LanguageDTO[]>(`${API_URL}/with-preferred`);
     }
 }

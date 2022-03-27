@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WordDTO } from 'src/app/dto/word.dto';
+import { AlpahbetService } from 'src/app/service/alphabet.service';
 import { WordService } from 'src/app/service/word.service';
 
 @Component({
@@ -24,6 +25,4 @@ export class MyWordsComponent implements OnInit {
       }
     );
   }
-
-
 }

@@ -16,9 +16,7 @@ export class PlayButtonComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.url);
-    
+  ngOnInit(): void {    
   }
 
   public play(): void{
