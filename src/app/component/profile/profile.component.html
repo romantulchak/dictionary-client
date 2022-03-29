@@ -1,28 +1,43 @@
 <section class="profile__section">
   <ul class="profile__left_side">
     <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a routerLink="/profile/user-info"> <mat-icon>person</mat-icon> Profile</a>
+      <a routerLink="/profile/user-info">
+        <mat-icon>person</mat-icon> Profile
+      </a>
     </li>
     <li routerLinkActive="active">
-      <a routerLink="/profile/languages"> <mat-icon>spellcheck</mat-icon>Languages</a>
+      <a routerLink="/profile/languages">
+        <mat-icon>spellcheck</mat-icon>Languages
+      </a>
     </li>
     <li routerLinkActive="active">
-      <a routerLink="/profile/words"> <mat-icon>text_fields</mat-icon>Words</a>
+      <a routerLink="/profile/words">
+        <mat-icon>text_fields</mat-icon>Words
+      </a>
     </li>
     <li routerLinkActive="active" *ngIf="userPrivileges?.isAdmin || userPrivileges?.isModerator">
-      <a routerLink="/profile/create-language"><mat-icon>language</mat-icon> Create language</a>
+      <a routerLink="/profile/create-language">
+        <mat-icon>language</mat-icon> Create language
+      </a>
     </li>
     <li routerLinkActive="active" *ngIf="isAllowAllRoles">
-      <a routerLink="/profile/create-word">	<mat-icon>add_box</mat-icon> Create word</a>
+      <a routerLink="/profile/create-word">
+        <mat-icon>add_box</mat-icon> Create word
+      </a>
     </li>
     <li (click)="exit()">
-      <span><mat-icon>exit_to_app</mat-icon> Exit</span>
+      <span>
+        <mat-icon>exit_to_app</mat-icon> Exit
+      </span>
     </li>
   </ul>
   <div class="profile__right_side">
     <app-top-nav></app-top-nav>
     <div class="content">
       <div class="container">
+        <div class="loader" *ngIf="loaderService.isLoading | async">
+          <mat-spinner></mat-spinner>
+        </div>
         <router-outlet></router-outlet>
       </div>
     </div>

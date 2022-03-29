@@ -36,6 +36,8 @@ import { WordBolderPipe } from './pipe/word-bolder.pipe';
 import {MatDialogModule} from '@angular/material/dialog';
 import { WordDetailsComponent } from './component/dialog/word-details/word-details.component';
 import { CopyButtonComponent } from './component/button/copy-button/copy-button.component';
+import { loaderInterceptorProviders } from './service/loader.interceptor';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -76,9 +78,10 @@ import { CopyButtonComponent } from './component/button/copy-button/copy-button.
     MatFormFieldModule,
     ClipboardModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, loaderInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

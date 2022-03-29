@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RouterConstant } from 'src/app/constants/router.constant';
 import { RoleType } from 'src/app/model/enum/role-type.enum';
 import { UserPrivileges } from 'src/app/model/user-privileges.model';
+import { LoaderService } from 'src/app/service/loader.service';
 import { RoleService } from 'src/app/service/role.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 
@@ -16,7 +17,8 @@ export class ProfileComponent implements OnInit {
   public userPrivileges: UserPrivileges;
   public isAllowAllRoles: boolean;
 
-  constructor(private roleService: RoleService,
+  constructor(public loaderService: LoaderService,
+              private roleService: RoleService,
               private tokenStorageService: TokenStorageService,
               private router: Router) {}
 
