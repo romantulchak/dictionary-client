@@ -35,9 +35,7 @@
     <app-top-nav></app-top-nav>
     <div class="content">
       <div class="container">
-        <div class="loader" *ngIf="loaderService.isLoading | async">
-          <mat-spinner></mat-spinner>
-        </div>
+        <app-loader></app-loader>
         <router-outlet></router-outlet>
       </div>
     </div>

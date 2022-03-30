@@ -44,7 +44,9 @@ a {
 
 .container {
   max-width: 1600px;
+  min-height: 600px;
   margin: 0 auto;
+  position: relative;
 }
 
 

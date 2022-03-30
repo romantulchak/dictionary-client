@@ -1,7 +1,7 @@
 ::ng-deep {
   .mat-progress-spinner circle,
   .mat-spinner circle {
-    stroke: #fef;
+    stroke: #8295f5;
   }
 }
 
@@ -24,7 +24,7 @@
     top: 0;
 
     li {
-      font-family: 'Bitter';
+      font-family: 'Bitter', serif;
       font-weight: 600;
 
       a,
@@ -34,7 +34,6 @@
         display: flex;
         text-transform: none;
         text-decoration: none;
-        color: inherit;
         align-items: center;
         color: black;
 
@@ -49,21 +48,5 @@
     .content {
       padding: 1em;
     }
-  }
-}
-
-.loader {
-  position: absolute;
-  height: 700px;
-  width: 1600px;
-  background: #8295f5;
-  border-radius: 9px;
-  z-index: 99;
-
-  mat-spinner {
-    width: 100px;
-    height: 100px;
-    left: 46%;
-    top: 43%;
   }
 }
