@@ -1,15 +1,37 @@
 <section>
-
-    <nav>
-        <ul class="links">
-            <li class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a routerLink="all">All words</a>
-            </li>
-            <li class="link" routerLinkActive="active">
-                <a routerLink="my">My words</a>
-            </li>
-        </ul>
-    </nav>
-
-    <router-outlet></router-outlet>
+  <div class="language__field_block">
+    <h3>
+      <span *ngIf="selectedLanguage">
+        <span class="flag-icon flag-icon-{{selectedLanguage.code}}"></span>
+        {{selectedLanguage.name}}
+      </span>
+      <span *ngIf="!selectedLanguage?.name">
+        Choose Language
+      </span>
+    </h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Language</mat-label>
+      <mat-select (selectionChange)="selectLanguage($event)" [(ngModel)]="selectedLanguage">
+        <mat-option *ngFor="let language of languages" [value]="language">{{language?.name}}</mat-option>
+      </mat-select>
+      <pre></pre>
+    </mat-form-field>
+  </div>
+  <div *ngIf="letters" class="alphabet">
+    <h3>Alphabet</h3>
+    <ul class="letters">
+      <li class="letter" [class.active]="selectedLetter?.letter === letter?.letter" *ngFor="let letter of letters" (click)="selectLetter(letter)">{{letter?.letter}}</li>
+    </ul>
+  </div>
+  <nav>
+    <ul class="links">
+      <li class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a routerLink="all">All words</a>
+      </li>
+      <li class="link" routerLinkActive="active">
+        <a routerLink="my">My words</a>
+      </li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
 </section>

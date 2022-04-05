@@ -15,14 +15,10 @@ export class MyWordsComponent implements OnInit {
   constructor(private wordService: WordService) { }
 
   ngOnInit(): void {
-    this.getUserWords();
-  }
+    // this.getUserWords();
 
-  private getUserWords(){
-    this.wordService.getUserWords().subscribe(
-      res=>{
+    this.wordService.words.subscribe(res => {
         this.words = res;
-      }
-    );
+    })
   }
 }

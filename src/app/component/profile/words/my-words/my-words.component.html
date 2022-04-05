@@ -1,6 +1,11 @@
 <section class="my__words">
-    <div class="word__card" *ngFor="let word of words">
-        <h3 class="name">{{word.name}}</h3>
-        <app-play-button [size]="'m'" [isBackgroundEnabled]="true" [url]="word.pronunciation"></app-play-button>
-    </div>
+    <ng-container *ngIf="words.length > 0;else wordsNotFound">
+        <div class="word__card" *ngFor="let word of words">
+            <h3 class="name">{{word.name}}</h3>
+            <app-play-button [size]="'m'" [isBackgroundEnabled]="true" [url]="word.pronunciation"></app-play-button>
+        </div>
+    </ng-container>
+    <ng-template #wordsNotFound>
+        <h2>Words not found by search criteria</h2>
+    </ng-template>
 </section>

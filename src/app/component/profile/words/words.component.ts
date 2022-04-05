@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { LanguageDTO } from 'src/app/dto/language.dto';
-import { WordDTO } from 'src/app/dto/word.dto';
+import { LetterDTO } from 'src/app/dto/letter.dto';
 import { AlpahbetService } from 'src/app/service/alphabet.service';
 import { LanguageService } from 'src/app/service/language.service';
 import { WordService } from 'src/app/service/word.service';
@@ -12,19 +13,43 @@ import { WordService } from 'src/app/service/word.service';
 })
 export class WordsComponent implements OnInit {
   
-  private selectedLanguage: LanguageDTO;
+  public languages: LanguageDTO[];
+  public letters: LetterDTO[] | null;
+  public selectedLanguage: LanguageDTO;
+  public selectedLetter: LetterDTO | null;
 
   constructor(private alphabetService: AlpahbetService,
-              private languageService: LanguageService) { }
+              private languageService: LanguageService,
+              private wordService: WordService) { }
 
   ngOnInit(): void {
     this.getLanguagesWithPreferred();
+    this.getUserWords();
+  }
+
+  public selectLanguage(language: MatSelectChange): void{
+    this.selectedLanguage = language.value;
+    this.selectedLetter = null;
+    this.getAlpahbetForLanguage();
+  }
+
+  public selectLetter(letter: LetterDTO): void{
+    if(this.selectedLetter === letter){
+      this.selectedLetter = null;
+      this.getUserWords();
+    }else{
+      this.selectedLetter = letter;
+      this.findWordsByLetter();
+    }
   }
 
   private getAlpahbetForLanguage(): void{
     this.alphabetService.getAlphabetForLanguage(this.selectedLanguage.code).subscribe(
       res=>{
-        console.log(res);
+        this.letters = res;
+      },
+      error=>{
+        this.letters = null;
       }
     );
   }
@@ -33,9 +58,26 @@ export class WordsComponent implements OnInit {
     this.languageService.getLanguagesWithPreferred().subscribe(
       res=>{
         if(res){
+          this.languages = res;
           this.selectedLanguage = res[0];
           this.getAlpahbetForLanguage();
         }
+      }
+    );
+  }
+
+  private findWordsByLetter(): void{
+    this.wordService.getWordsByLetter(this.selectedLetter?.letter).subscribe(
+      res=>{
+        this.wordService.words.next(res);
+      }
+    );
+  }
+
+  private getUserWords(): void{
+    this.wordService.getUserWords().subscribe(
+      res=>{
+        this.wordService.words.next(res);
       }
     );
   }
