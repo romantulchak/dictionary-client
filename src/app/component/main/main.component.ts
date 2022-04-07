@@ -1,13 +1,10 @@
-import { Clipboard } from '@angular/cdk/clipboard';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import {LanguageDTO} from 'src/app/dto/language.dto';
 import { WordDTO } from 'src/app/dto/word.dto';
+import { DialogService } from 'src/app/service/dialog.service';
 import {LanguageService} from 'src/app/service/language.service';
-import { SnackbarService } from 'src/app/service/snack-bar.service';
 import {WordService} from 'src/app/service/word.service';
-import { WordDetailsComponent } from '../dialog/word-details/word-details.component';
 
 @Component({
   selector: 'app-main',
@@ -26,7 +23,7 @@ export class MainComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private languageService: LanguageService,
               private wordService: WordService,
-              private dialog: MatDialog) { }
+              public dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.getLanguages();
@@ -38,7 +35,7 @@ export class MainComponent implements OnInit {
       res => {
         this.translatedWords = res;
         console.log(res);
-        
+
         this.translatedWordNotFound = '';
       },
       error => {
@@ -52,14 +49,6 @@ export class MainComponent implements OnInit {
     const languageFrom = this.languages.find(language => language.code === this.languageFrom);
     const languageTo = this.languages.find(language => language.code === this.languageTo);
     [this.languageFrom, this.languageTo] = [languageTo, languageFrom];
-  }
-
-  public showWordDetails(word: WordDTO): void{
-    this.dialog.open(WordDetailsComponent, {
-      data: word,
-      width: '1000px',
-      height: '400px'
-    });
   }
 
   private initTranslateForm(): void {

@@ -59,7 +59,7 @@
               *ngFor="let translatedWord of translatedWords; let index = index">
               <h3 matTooltipPosition="above"
                 matTooltip="Click to show details"
-                matTooltipShowDelay="500" (click)="showWordDetails(translatedWord)">{{translatedWord.name}}</h3>
+                matTooltipShowDelay="500" (click)="dialogService.showWordDetails(translatedWord)">{{translatedWord.name}}</h3>
               <div class="functional__btn">
                 <app-play-button [size]="'s'" [url]="translatedWord.pronunciation"></app-play-button>
                 <app-copy-button></app-copy-button>

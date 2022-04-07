@@ -39,6 +39,7 @@ import { CopyButtonComponent } from './component/button/copy-button/copy-button.
 import { loaderInterceptorProviders } from './service/loader.interceptor';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoaderComponent } from './component/loader/loader.component';
+import { TechnicalProblemComponent } from './component/technical-problem/technical-problem.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { LoaderComponent } from './component/loader/loader.component';
     WordBolderPipe,
     WordDetailsComponent,
     CopyButtonComponent,
-    LoaderComponent
+    LoaderComponent,
+    TechnicalProblemComponent
   ],
   imports: [
     BrowserModule,

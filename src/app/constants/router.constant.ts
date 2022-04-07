@@ -12,4 +12,5 @@ export class RouterConstant{
     public static readonly WORDS_URL: string = 'words';
     public static readonly MY_WORDS_URL: string = 'my';
     public static readonly ALL_WORDS_URL: string = 'all';
+    public static readonly TECHNICAL_PROBLEM_URL = 'ooops';
 }

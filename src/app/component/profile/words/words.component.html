@@ -1,29 +1,44 @@
 <section>
-  <div class="language__field_block">
-    <h3>
-      <span *ngIf="selectedLanguage">
-        <span class="flag-icon flag-icon-{{selectedLanguage.code}}"></span>
-        {{selectedLanguage.name}}
+  <div class="language__alphabet">
+    <div class="expand__btn" (click)="showHideAlphabetLetters()">
+      <span *ngIf="showAlphabetLetters">
+        <mat-icon>expand_less</mat-icon>
+        Hide alphabet letters
       </span>
-      <span *ngIf="!selectedLanguage?.name">
-        Choose Language
+      <span *ngIf="!showAlphabetLetters">
+        <mat-icon>expand_more</mat-icon>
+        Show alphabet letters
       </span>
-    </h3>
-    <mat-form-field appearance="outline">
-      <mat-label>Language</mat-label>
-      <mat-select (selectionChange)="selectLanguage($event)" [(ngModel)]="selectedLanguage">
-        <mat-option *ngFor="let language of languages" [value]="language">{{language?.name}}</mat-option>
-      </mat-select>
-      <pre></pre>
-    </mat-form-field>
+    </div>
+    <ng-container *ngIf="showAlphabetLetters">
+      <div class="language__field_block">
+        <h3>
+          <span *ngIf="selectedLanguage">
+            <span class="flag-icon flag-icon-{{selectedLanguage.code}}"></span>
+            {{selectedLanguage.name}}
+          </span>
+          <span *ngIf="!selectedLanguage?.name">
+            Choose Language
+          </span>
+        </h3>
+        <mat-form-field appearance="outline">
+          <mat-label>Language</mat-label>
+          <mat-select (selectionChange)="selectLanguage($event)" [(ngModel)]="selectedLanguage">
+            <mat-option *ngFor="let language of languages" [value]="language">{{language?.name}}</mat-option>
+          </mat-select>
+          <pre></pre>
+        </mat-form-field>
+      </div>
+      <div *ngIf="letters" class="alphabet">
+        <h3>Alphabet</h3>
+        <ul class="letters">
+          <li class="letter" [class.active]="selectedLetter?.letter === letter?.letter" *ngFor="let letter of letters"
+            (click)="selectLetter(letter)">{{letter?.letter}}</li>
+        </ul>
+      </div>
+    </ng-container>
   </div>
-  <div *ngIf="letters" class="alphabet">
-    <h3>Alphabet</h3>
-    <ul class="letters">
-      <li class="letter" [class.active]="selectedLetter?.letter === letter?.letter" *ngFor="let letter of letters" (click)="selectLetter(letter)">{{letter?.letter}}</li>
-    </ul>
-  </div>
-  <nav>
+  <nav [class.alphabet__hidden]="!showAlphabetLetters">
     <ul class="links">
       <li class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <a routerLink="all">All words</a>

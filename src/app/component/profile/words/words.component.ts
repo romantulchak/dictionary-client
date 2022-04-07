@@ -12,11 +12,12 @@ import { WordService } from 'src/app/service/word.service';
   styleUrls: ['./words.component.scss']
 })
 export class WordsComponent implements OnInit {
-  
+
   public languages: LanguageDTO[];
   public letters: LetterDTO[] | null;
   public selectedLanguage: LanguageDTO;
   public selectedLetter: LetterDTO | null;
+  public showAlphabetLetters: boolean = true;
 
   constructor(private alphabetService: AlpahbetService,
               private languageService: LanguageService,
@@ -43,12 +44,16 @@ export class WordsComponent implements OnInit {
     }
   }
 
+  public showHideAlphabetLetters(): void{
+      this.showAlphabetLetters = !this.showAlphabetLetters;
+  }
+
   private getAlpahbetForLanguage(): void{
     this.alphabetService.getAlphabetForLanguage(this.selectedLanguage.code).subscribe(
       res=>{
         this.letters = res;
       },
-      error=>{
+      ()=>{
         this.letters = null;
       }
     );

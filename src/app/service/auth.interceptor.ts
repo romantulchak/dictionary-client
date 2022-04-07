@@ -1,11 +1,11 @@
-import { HTTP_INTERCEPTORS, HttpEvent } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 import { Router } from '@angular/router';
+import { RouterConstant } from '../constants/router.constant';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let authReq = req;
     const token = this.token.getToken();
     if (token != null) {
-      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, `Bearer ${token}`) });
     }
     return next.handle(authReq).pipe(
       tap(
@@ -27,10 +27,13 @@ export class AuthInterceptor implements HttpInterceptor {
           switch (error.status) {
             case 401:
               localStorage.clear();
-              this.router.navigateByUrl('/auth/login');
+              this.router.navigateByUrl(`${RouterConstant.AUTH_URL}/${RouterConstant.LOGIN_URL}`);
               break;
             case 403:
-              this.router.navigateByUrl('/drive/my-drive');
+              this.router.navigateByUrl(`${RouterConstant.HOME_URL}`);
+              break;
+            case 500:
+              this.router.navigateByUrl(`${RouterConstant.TECHNICAL_PROBLEM_URL}`);
           }
         })
     );;

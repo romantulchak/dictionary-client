@@ -1,20 +1,29 @@
-.my__words{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1em;
+.my__words {
+  display: grid;
+  grid-gap: 1em;
 
-    .word__card{
-        align-items: center;
-        width: 100%;
-        border: 1px solid black;
-        border-radius: 4px;
-        height: 80px;
-        display: flex;
-        justify-content: space-around;
+  .word__card {
+    width: 100%;
+    border-bottom: 1px solid #d0dfd3;
 
-        .name{
-            font-size: 28px;
-            margin: 0;
-        }
+    .card__name_btns {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
     }
+
+    .card__buttons {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      gap: 2em;
+    }
+  }
+
+  .name {
+    font-size: 28px;
+    margin: 0;
+  }
 }

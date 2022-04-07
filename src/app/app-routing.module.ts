@@ -12,6 +12,7 @@ import { UserInfoComponent } from './component/profile/user-info/user-info.compo
 import { AllWordsComponent } from './component/profile/words/all-words/all-words.component';
 import { MyWordsComponent } from './component/profile/words/my-words/my-words.component';
 import { WordsComponent } from './component/profile/words/words.component';
+import { TechnicalProblemComponent } from './component/technical-problem/technical-problem.component';
 import { RouterConstant } from './constants/router.constant';
 import { AdminModeratorGuard } from './guard/admin-moderator.guard';
 import { AuthGuard } from './guard/auth.guard';
@@ -35,6 +36,7 @@ const routes: Routes = [
       {path: RouterConstant.ALL_WORDS_URL, component: AllWordsComponent}
     ]}
   ]},
+  {path: RouterConstant.TECHNICAL_PROBLEM_URL, component: TechnicalProblemComponent},
   {path: RouterConstant.NOT_FOUND_URL, component: NotFoundComponent}
 ];
 
