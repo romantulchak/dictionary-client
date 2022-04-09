@@ -2,6 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
+import { LoaderUrlConstant } from "../constants/loader-url.constant";
 import { LoaderService } from "./loader.service";
 
 @Injectable({
@@ -12,7 +13,9 @@ export class LoaderInterceptor implements HttpInterceptor {
     constructor(private loaderService: LoaderService){}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.loaderService.isLoading.next(true);
+        if(!this.checkUrls(req.url)){
+            this.loaderService.isLoading.next(true);
+        }  
         return next.handle(req).pipe(
             finalize(
                 () =>{
@@ -22,6 +25,10 @@ export class LoaderInterceptor implements HttpInterceptor {
                 }
             )
         )
+    }
+
+    private checkUrls(currentUrl: string): boolean{
+        return LoaderUrlConstant.URLS_TO_BE_SKIPED.filter(url => currentUrl.endsWith(url)).length > 0;
     }
 }
 

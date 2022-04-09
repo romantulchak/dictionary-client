@@ -16,7 +16,7 @@ export class DialogService{
         this.dialog.open(WordDetailsComponent, {
           data: word,
           width: '1000px',
-          height: '400px'
+          height: '420px'
         });
       };
 }
