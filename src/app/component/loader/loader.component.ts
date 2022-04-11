@@ -18,7 +18,7 @@ export class LoaderComponent implements OnInit {
   }
 
   private getLoading(): void{
-    this.loaderService.isLoading.pipe(delay(0)).subscribe(
+    this.loaderService.isLoading.subscribe(
       res=>{
         this.loading = res;
       }

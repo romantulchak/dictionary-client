@@ -1,29 +1,92 @@
-.top_nav{
-    z-index: 1;
-    background: #fff;
-    position: sticky;
-    top: 0;
-
-    ul{
-        padding: 0.5em 3.5em;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        border-bottom: 1px solid #d0dfd3;
-        li{
-            &:not(:last-child){
-                margin-right: 1em;
-            }
-            a{
-                display: flex;
-            }
-        }
-    }
+%inputButton {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  outline: 0;
 }
 
-.active{
+.top_nav {
+  z-index: 1;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #d0dfd3;
+  height: 50px;
 
-    a{
-        color: #8295f5;
+  ul {
+    padding: 0.5em 3.5em;
+    display: flex;
+
+    li {
+      &:not(:last-child) {
+        margin-right: 1em;
+      }
+
+      a {
+        display: flex;
+      }
     }
+  }
+}
+
+.active {
+
+  a {
+    color: #8295f5;
+  }
+}
+
+#search {
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 0 1em;
+  transition: all 0.5s;
+  border: 1px solid #8295f5;
+  font: 22px/1.375 Roboto;
+  margin: auto;
+
+  &:hover,
+  &:focus {
+    background: rgba(130, 149, 245, 0.23);
+  }
+
+  input {
+    @extend %inputButton;
+    flex: 1;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.432);
+    }
+  }
+
+  button {
+    @extend %inputButton;
+    cursor: pointer;
+    padding: 0 0.25em;
+    align-self: center;
+    display: flex;
+
+    img {
+      animation: loaderSpiner 1.4s infinite;
+    }
+  }
+}
+
+@keyframes loaderSpiner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

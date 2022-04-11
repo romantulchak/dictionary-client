@@ -1,5 +1,12 @@
-<div class="top_nav">
-    <ul>
+<nav class="top_nav" [ngStyle]="{'justify-content': isShowSearchBlock ? 'space-between' : 'flex-end'}">
+    <div id="search" *ngIf="isShowSearchBlock">
+      <input id="input" placeholder="Search..." #searchValue (input)="search(searchValue.value)"/>
+      <button id="button">
+        <mat-icon *ngIf="!isSearch">search</mat-icon>
+        <img *ngIf="isSearch" src="../../../../assets/img/loader.svg" alt="Loader">
+      </button>
+    </div>
+  <ul>
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <a routerLink=""><mat-icon aria-hidden="false" aria-label="Profile icon">home</mat-icon></a>
         </li>
@@ -7,4 +14,4 @@
             <a routerLink="/profile"><mat-icon aria-hidden="false" aria-label="Profile icon">person</mat-icon></a>
           </li>
       </ul>
-</div>
+    </nav>

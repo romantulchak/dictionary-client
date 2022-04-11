@@ -45,7 +45,7 @@ export class WordsComponent implements OnInit {
   }
 
   public showHideAlphabetLetters(): void{
-      this.showAlphabetLetters = !this.showAlphabetLetters;
+    this.showAlphabetLetters = !this.showAlphabetLetters;
   }
 
   private getAlpahbetForLanguage(): void{
