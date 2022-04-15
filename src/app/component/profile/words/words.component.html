@@ -1,16 +1,16 @@
 <section>
   <div class="language__alphabet">
-    <div class="expand__btn" (click)="showHideAlphabetLetters()">
-      <span *ngIf="showAlphabetLetters">
-        <mat-icon>expand_less</mat-icon>
-        Hide alphabet letters
-      </span>
-      <span *ngIf="!showAlphabetLetters">
-        <mat-icon>expand_more</mat-icon>
-        Show alphabet letters
-      </span>
-    </div>
-    <ng-container *ngIf="showAlphabetLetters">
+    <ng-container *ngIf="showAlphabetLetters && letters">
+      <div class="expand__btn" (click)="showHideAlphabetLetters()">
+        <span *ngIf="showAlphabetLetters">
+          <mat-icon>expand_less</mat-icon>
+          Hide alphabet letters
+        </span>
+        <span *ngIf="!showAlphabetLetters">
+          <mat-icon>expand_more</mat-icon>
+          Show alphabet letters
+        </span>
+      </div>
       <div class="language__field_block">
         <h3>
           <span *ngIf="selectedLanguage">

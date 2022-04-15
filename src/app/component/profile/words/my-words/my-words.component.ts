@@ -16,8 +16,33 @@ export class MyWordsComponent implements OnInit {
               public dialogService: DialogService) { }
 
   ngOnInit(): void {
+    this.detectWordChanges();
+    this.detectLetterChanges();
+  }
+
+  private detectWordChanges(): void{
     this.wordService.words.subscribe(res => {
+      if(res){
         this.words = res;
+      }
     });
+  }
+
+  private detectLetterChanges(): void{
+    this.wordService.letterSelected.subscribe(
+      res=>{
+        if(!res){
+          this.getUserWords();
+        }
+      }
+    );
+  }
+
+  private getUserWords(): void{
+    this.wordService.getUserWords().subscribe(
+      res=>{
+        this.wordService.words.next(res);
+      }
+    );
   }
 }

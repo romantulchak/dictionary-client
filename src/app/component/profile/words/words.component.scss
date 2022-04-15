@@ -50,17 +50,17 @@
       gap: 10px;
 
       .letter {
-        width: 50px;
+        width: 35px;
         cursor: pointer;
-        height: 50px;
-        border: 1px solid rgb(0 0 0 / 20%);
+        height: 35px;
+        border: 2px solid rgba(0, 0, 0, 0.2);
         border-radius: 4px;
         display: flex;
         justify-content: center;
         align-items: center;
         font-weight: 900;
         color: #524d48;
-        font-size: 25px;
+        font-size: 20px;
       }
 
       .active {

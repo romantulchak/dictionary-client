@@ -14,6 +14,7 @@ const API_URL = `${environment.API_URL}word`;
 export class WordService{
 
     public words: BehaviorSubject<WordDTO[]> = new BehaviorSubject<WordDTO[]>([]);
+    public letterSelected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient){}
 
@@ -49,7 +50,7 @@ export class WordService{
         let params = new HttpParams();
         params = params.append('page', page.toString())
                         .append('size', size);
-        return this.http.get<WordDTO[]>(`${API_URL}/${letter}`, {params: params}).pipe(
+        return this.http.get<WordDTO[]>(`${API_URL}/by-letter/${letter}`, {params: params}).pipe(
             take(1)
         );
     }

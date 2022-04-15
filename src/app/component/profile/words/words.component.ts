@@ -25,7 +25,6 @@ export class WordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLanguagesWithPreferred();
-    this.getUserWords();
   }
 
   public selectLanguage(language: MatSelectChange): void{
@@ -37,7 +36,7 @@ export class WordsComponent implements OnInit {
   public selectLetter(letter: LetterDTO): void{
     if(this.selectedLetter === letter){
       this.selectedLetter = null;
-      this.getUserWords();
+      this.wordService.letterSelected.next(false);
     }else{
       this.selectedLetter = letter;
       this.findWordsByLetter();
@@ -73,14 +72,6 @@ export class WordsComponent implements OnInit {
 
   private findWordsByLetter(): void{
     this.wordService.getWordsByLetter(this.selectedLetter?.letter).subscribe(
-      res=>{
-        this.wordService.words.next(res);
-      }
-    );
-  }
-
-  private getUserWords(): void{
-    this.wordService.getUserWords().subscribe(
       res=>{
         this.wordService.words.next(res);
       }

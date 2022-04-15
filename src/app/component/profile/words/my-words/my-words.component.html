@@ -1,17 +1,3 @@
 <section class="my__words">
-  <ng-container *ngIf="words.length > 0;else wordsNotFound">
-    <div class="word__card" *ngFor="let word of words">
-      <div class="card__name_btns">
-        <h3 class="name">{{word.name}}</h3>
-        <div class="card__buttons">
-            <mat-icon (click)="dialogService.showWordDetails(word)">crop_free</mat-icon>
-            <app-play-button [size]="'s'" [isBackgroundEnabled]="true" [url]="word.pronunciation"></app-play-button>
-            <app-copy-button [text]="word.name" [color]="'rgb(0 0 0 / 70%)'"></app-copy-button>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <ng-template #wordsNotFound>
-    <h2>Words not found by search criteria</h2>
-  </ng-template>
+  <app-words-list [words]="words"></app-words-list>
 </section>

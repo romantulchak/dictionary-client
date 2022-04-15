@@ -40,6 +40,7 @@ import { loaderInterceptorProviders } from './service/loader.interceptor';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoaderComponent } from './component/loader/loader.component';
 import { TechnicalProblemComponent } from './component/technical-problem/technical-problem.component';
+import { WordsListComponent } from './component/profile/words/words-list/words-list.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { TechnicalProblemComponent } from './component/technical-problem/technic
     WordDetailsComponent,
     CopyButtonComponent,
     LoaderComponent,
-    TechnicalProblemComponent
+    TechnicalProblemComponent,
+    WordsListComponent
   ],
   imports: [
     BrowserModule,
