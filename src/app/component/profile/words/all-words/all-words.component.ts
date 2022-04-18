@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WordService } from 'src/app/service/word.service';
 
 @Component({
   selector: 'app-all-words',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllWordsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private wordService: WordService) { }
 
   ngOnInit(): void {
   }
 
+  private getTopWordsByLanguage(): void{
+  }
 }

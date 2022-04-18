@@ -44,7 +44,7 @@ export class CreateWordComponent implements OnInit {
     this.selectedLanguagesTo.push(selectedLanguage);
     this.languagesToControls.controls.forEach(control => {
       const languages = control.get(LANGUAGES_CONTROL);
-      const availableValues = languages?.value.filter((language: LanguageDTO) => language !== selectedLanguage);
+      const availableValues = this.languages.filter((language: LanguageDTO) => language !== selectedLanguage);
       languages?.setValue(availableValues);
       const selectedValueForControl = control.get(LANGUAGE_CONTROL);
       if(selectedValueForControl?.value.code === selectedLanguage.code){

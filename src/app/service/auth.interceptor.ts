@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
               this.router.navigateByUrl(`${RouterConstant.TECHNICAL_PROBLEM_URL}`);
           }
         })
-    );;
+    );
   }
 }
 

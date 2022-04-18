@@ -47,12 +47,22 @@ export class WordService{
     }
 
     public getWordsByLetter(letter: string | undefined, page: number = 0, size: number = 10): Observable<WordDTO[]>{
-        let params = new HttpParams();
-        params = params.append('page', page.toString())
-                        .append('size', size);
-        return this.http.get<WordDTO[]>(`${API_URL}/by-letter/${letter}`, {params: params}).pipe(
+        return this.http.get<WordDTO[]>(`${API_URL}/by-letter/${letter}`, {params: this.getPageable(page, size)}).pipe(
             take(1)
         );
+    }
+
+    public getTopWordsByLanguage(languageCode: string, page: number = 0, size: number = 0): Observable<WordDTO[]>{
+        return this.http.get<WordDTO[]>(`${API_URL}/top-words-by-language/${languageCode}`, {params: this.getPageable(page, size)}).pipe(
+            take(1)
+        );
+    }
+
+    private getPageable(page: number, size: number): HttpParams{
+        let params = new HttpParams();
+        params = params.append('page', page)
+                        .append('size', size);
+        return params;
     }
 
 }
